@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# Create swap, since image only has 512 MB
+fallocate -l 512M /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap defaults 0 0' >> /etc/fstab
+
+# Add PHP5 repository
+sudo add-apt-repository -y ppa:ondrej/php5
+
+# Upgrade Ubuntu 
+apt-get update
+apt-get upgrade -y
+
+# Install PHP (from source)
+#apt-get install -y pkg-config libxml2-dev libssl-dev libcurl-dev \
+#	libcurl4-openssl-dev libjpeg-dev libpng-dev libicu-dev \
+#	g++ libxdlt-dev
+#cd /usr/local/src
+#wget http://us2.php.net/get/php-5.5.16.tar.xz/from/this/mirror \
+#	-O php-5.5.16.tar.xz
+#tar -Jxf php-5.5.16.tar.xz
+#cd php-5.5.16
+#./configure \
+#	--prefix=/usr/local/php \
+#	--disable-short-tags \
+#	--with-gettext \
+#	--enable-fpm \
+#	--enable-ftp \
+#	--enable-intl \
+#	--enable-mbregex \
+#	--enable-mbstring=all \
+#	--with-curl \
+#	--with-gd \
+#	--with-iconv \
+#	--with-jpeg-dir \
+#	--with-openssl \
+#	--with-png-dir \
+#	--with-xmlrpc \
+#	--with-xsl \
+#	--with-zlib \
+#	--without-pgsql \
+#	--without-mysql
+#make install
+
+# Add PHP5/Apache from repo
+apt-get install -y php5 php5-dev php-pear phpunit
+
+# Add php-ini location
+pear config-set php_ini /etc/php5/apache2/php.ini
+
+# Install Horde from source
+apt-get install -y git
+mkdir -p /horde/data
+mkdir -p /horde/src
+git clone --depth 1 https://github.com/horde/horde.git /horde/src
+
+# Install framework
+cp /vagrant/install_dev.conf /horde/src/framework/bin
+/horde/src/framework/bin/install_dev
+
+# Install Horde PEAR packages, so that we don't need to deal with those
+# dependencies
+/horde/src/framework/bin/pear_batch_install
+
+# Now install optional/required PEAR/PECL packages
+/horde/src/framework/bin/pear_batch_install -a \
+	-p .,../content,../gollem,../horde,../imp,../ingo,../kronolith,../mnemo,../nag,../passwd,../timeobjects,../trean,../turba
+
