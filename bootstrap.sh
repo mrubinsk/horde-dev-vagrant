@@ -51,21 +51,5 @@ apt-get install -y php5 php5-dev php-pear phpunit
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
 
-# Install Horde from source
-apt-get install -y git
-mkdir -p /horde/data
-mkdir -p /horde/src
-git clone --depth 1 https://github.com/horde/horde.git /horde/src
-
-# Install framework
-cp /vagrant/install_dev.conf /horde/src/framework/bin
-/horde/src/framework/bin/install_dev
-
-# Install Horde PEAR packages, so that we don't need to deal with those
-# dependencies
-/horde/src/framework/bin/pear_batch_install
-
-# Now install optional/required PEAR/PECL packages
-/horde/src/framework/bin/pear_batch_install -a \
-	-p .,../content,../gollem,../horde,../imp,../ingo,../kronolith,../mnemo,../nag,../passwd,../timeobjects,../trean,../turba
-
+# Run Horde-specific tasks
+[ -f "./horde.sh" ] && ./horde-sh
