@@ -8,6 +8,7 @@ swapon /swapfile
 echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 
 # Add PHP5 repository
+export LANG=C.UTF-8
 add-apt-repository -y ppa:ondrej/php5
 
 # Upgrade Ubuntu 
