@@ -51,6 +51,3 @@ apt-get install -y php5 php5-dev php-pear phpunit
 
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
-
-# Run Horde-specific tasks
-[ -f "./horde.sh" ] && ./horde-sh

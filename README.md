@@ -1,6 +1,9 @@
 horde-dev-vagrant
 =================
 
-Vagrant configuration for Horde git master.
+Vagrant images for Horde.
 
-Download to a directory and run "vagrant up".  That's it.
+Usage:
+  - change to the desired setup/* directory
+  - Run "vagrant up". That's it.
+    - To destroy, run "vagrant destroy"
