@@ -46,8 +46,15 @@ apt-get upgrade -y
 #	--without-mysql
 #make install
 
+# mysql
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
+apt-get install -y mysql-server
+
+mysql -u root --password=password -e "create database horde";
+
 # Add PHP5/Apache from repo
-apt-get install -y php5 php5-dev php-pear phpunit
+apt-get install -y php5 php5-dev php-pear php5-mysql phpunit
 
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
