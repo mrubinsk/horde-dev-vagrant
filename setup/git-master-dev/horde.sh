@@ -21,6 +21,7 @@ cp /vagrant/registry.local.php /horde/src/horde/config
 #cp /horde/src/horde/config/conf.php.dist /horde/src/horde/config/conf.php
 cp /vagrant/horde-conf.php /horde/src/horde/config/conf.php
 cp /vagrant/imp-conf.php /horde/src/imp/config/conf.php
+cp /vagrant/imp-backends.local.php /horde/src/imp/config/backends.local/php
 cp /vagrant/kronolith-conf.php /horde/src/kronolith/config/conf.php
 cp /vagrant/turba-conf.php /horde/src/turba/config/conf.php
 #temp

@@ -64,7 +64,7 @@ else
     echo 'Installing Dovecot'
     sudo apt-get -qq -y install dovecot-imapd 
     sudo touch /etc/dovecot/local.conf
-    sudo echo 'mail_location = maildir:/home/%u/Maildir' >> /etc/dovecot/local.conf
+    sudo echo 'mail_location = mailbox:~/mail' >> /etc/dovecot/local.conf
     sudo echo 'disable_plaintext_auth = no' >> /etc/dovecot/local.conf
     sudo restart dovecot
 fi
@@ -78,6 +78,14 @@ else
     echo "testuser:password"|sudo chpasswd
     echo 'User created'
  fi
+
+sudo stop dovecot
+[ -d "/home/testuser/mail" ] && sudo rm -R /home/testuser/mail
+sudo cp -Rp /vagrant/empty.mbox /home/testuser/mail/inbox.mbox
+sudo chown -R testuser:testuser /home/testuser/mail
+sudo start dovecot
+ 
+echo 'Test mailbox restored'.
 
 # Add PHP5/Apache from repo
 apt-get -y install apache2
