@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Create swap, since image only has 512 MB
 fallocate -l 512M /swapfile
 chmod 600 /swapfile
@@ -15,23 +14,10 @@ add-apt-repository -y ppa:ondrej/php5
 apt-get update
 apt-get upgrade -y
 
-# mysql password
-PASSWORD='password'
-
-#test user and pass.
-TESTUSER=testuser
-TESTUSERPASS=password
-
-ADMINUSER=adminuser
-ADMINUSERPASS=adminpassword
-
 echo 'Provisioning MySQL server.'
-debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
-debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
+debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQLPASSWORD"
+debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQLPASSWORD"
 apt-get -y install mysql-server-5.5
-
-echo 'Creating horde database.'
-mysql -u root --password=$PASSWORD -e "create database horde";
 
 echo 'Provisioning Environment with Dovecot';
 if which dovecot > /dev/null; then
