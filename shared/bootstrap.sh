@@ -70,13 +70,14 @@ else
     echo 'User created'
 fi
 
-sudo stop dovecot
-[ -d "/home/$TESTUSER/mail" ] && sudo rm -R /home/$TESTUSER/mail
-sudo cp -Rp /vagrant/empty.mbox /home/$TESTUSER/mail/inbox.mbox
-sudo chown -R $TESTUSER:$TESTUSER /home/$TESTUSER/mail
-sudo start dovecot
+#TODO
+#sudo stop dovecot
+#[ -d "/home/$TESTUSER/mail" ] && sudo rm -R /home/$TESTUSER/mail
+#sudo cp -Rp /vagrant/empty.mbox /home/$TESTUSER/mail/inbox.mbox
+#sudo chown -R $TESTUSER:$TESTUSER /home/$TESTUSER/mail
+#sudo start dovecot
  
-echo 'Test mailbox restored'.
+#echo 'Test mailbox restored'.
 
 # Add PHP5/Apache from repo
 apt-get -y install apache2
