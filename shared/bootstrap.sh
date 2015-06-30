@@ -15,46 +15,22 @@ add-apt-repository -y ppa:ondrej/php5
 apt-get update
 apt-get upgrade -y
 
-# Install PHP (from source)
-#apt-get install -y pkg-config libxml2-dev libssl-dev libcurl-dev \
-#	libcurl4-openssl-dev libjpeg-dev libpng-dev libicu-dev \
-#	g++ libxdlt-dev
-#cd /usr/local/src
-#wget http://us2.php.net/get/php-5.5.16.tar.xz/from/this/mirror \
-#	-O php-5.5.16.tar.xz
-#tar -Jxf php-5.5.16.tar.xz
-#cd php-5.5.16
-#./configure \
-#	--prefix=/usr/local/php \
-#	--disable-short-tags \
-#	--with-gettext \
-#	--enable-fpm \
-#	--enable-ftp \
-#	--enable-intl \
-#	--enable-mbregex \
-#	--enable-mbstring=all \
-#	--with-curl \
-#	--with-gd \
-#	--with-iconv \
-#	--with-jpeg-dir \
-#	--with-openssl \
-#	--with-png-dir \
-#	--with-xmlrpc \
-#	--with-xsl \
-#	--with-zlib \
-#	--without-pgsql \
-#	--without-mysql
-#make install
-
 # mysql password
 PASSWORD='password'
-HORDEDIR='/var/www/html/horde'
 
-# mysql
+#test user and pass.
+TESTUSER=testuser
+TESTUSERPASS=password
+
+ADMINUSER=adminuser
+ADMINUSERPASS=adminpassword
+
+echo 'Provisioning MySQL server.'
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
 apt-get -y install mysql-server-5.5
 
+echo 'Creating horde database.'
 mysql -u root --password=$PASSWORD -e "create database horde";
 
 echo 'Provisioning Environment with Dovecot';
@@ -62,27 +38,42 @@ if which dovecot > /dev/null; then
     echo 'Dovecot is already installed'
 else
     echo 'Installing Dovecot'
-    sudo apt-get -qq -y install dovecot-imapd 
+    debconf-set-selections <<< "dovecot-core dovecot-core/create-ssl-cert boolean true"
+    debconf-set-selections <<< "dovecot-core dovecot-core/ssl-cert-name string localhost"
+    sudo apt-get -qq -y install dovecot-core dovecot-imapd 
     sudo touch /etc/dovecot/local.conf
-    sudo echo 'mail_location = mailbox:~/mail' >> /etc/dovecot/local.conf
-    sudo echo 'disable_plaintext_auth = no' >> /etc/dovecot/local.conf
+    echo -e 'mail_location = mbox:~/mail' | sudo tee -a /etc/dovecot/local.conf
+    echo -e 'disable_plaintext_auth = no' | sudo tee -a /etc/dovecot/local.conf
     sudo restart dovecot
 fi
 
+echo 'Installing expect.'
+apt-get -y install expect
+
 # Generate a test user.
-if getent passwd testuser > /dev/null; then
-    echo 'testuser already exists'
+if getent passwd $TESTUSER > /dev/null; then
+    echo "$TESTUSER already exists"
 else
-    echo 'Creating User "testuser" with password "password"'
-    sudo useradd testuser -m -s /bin/bash
-    echo "testuser:password"|sudo chpasswd
+    echo "Creating User '$TESTUSER' with password '$TESTUSERPASS'"
+    sudo useradd $TESTUSER -m -s /bin/bash
+    echo "$TESTUSER:$TESTUSERPASS"|sudo chpasswd
     echo 'User created'
- fi
+fi
+
+# Generate the admin user.
+if getent passwd $ADMINUSER > /dev/null; then
+    echo "$ADMINUSER already exists"
+else
+    echo "Creating User '$ADMINUSER' with password '$ADMINUSERPASS'"
+    sudo useradd $ADMINUSER -m -s /bin/bash
+    echo "$ADMINUSER:$ADMINUSERPASS"|sudo chpasswd
+    echo 'User created'
+fi
 
 sudo stop dovecot
-[ -d "/home/testuser/mail" ] && sudo rm -R /home/testuser/mail
-sudo cp -Rp /vagrant/empty.mbox /home/testuser/mail/inbox.mbox
-sudo chown -R testuser:testuser /home/testuser/mail
+[ -d "/home/$TESTUSER/mail" ] && sudo rm -R /home/$TESTUSER/mail
+sudo cp -Rp /vagrant/empty.mbox /home/$TESTUSER/mail/inbox.mbox
+sudo chown -R $TESTUSER:$TESTUSER /home/$TESTUSER/mail
 sudo start dovecot
  
 echo 'Test mailbox restored'.
@@ -90,18 +81,6 @@ echo 'Test mailbox restored'.
 # Add PHP5/Apache from repo
 apt-get -y install apache2
 apt-get -y install php5 php5-dev php-pear php5-mysql phpunit
-# setup hosts file
-#VHOST=$(cat <<EOF
-#<VirtualHost *:80>
-#    DocumentRoot "/var/www/html/${HORDEDIR}"
-#    <Directory "/var/www/html/${HORDEDIR}">
-#        AllowOverride All
-#        Require all granted
-#    </Directory>
-#</VirtualHost>
-#EOF
-#)
-#echo "${VHOST}" > /etc/apache2/sites-available/000-default.conf
 
 # enable mod_rewrite
 sudo a2enmod rewrite
