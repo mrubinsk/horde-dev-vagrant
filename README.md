@@ -12,7 +12,8 @@ Usage:
 
 Common to all images:
 
-    - Installs MySQL, Dovecot (no MTA).
+    - Installs MySQL, Dovecot, and Postfix configured for local delivery only.
+     Email can be sent between any local users using e.g., testuser@localhost
     - By default, Horde is installed to /var/www/html/horde - this can be
       changed by editing shared/conf.sh file.
 
