@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo 'Creating horde database.'
-mysql -u root --password=$PASSWORD -e "create database horde";
+mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
 
 # Install Horde from source
 apt-get install -y git
@@ -21,16 +21,36 @@ cp /vagrant/registry.local.php /horde/src/horde/config
 /horde/src/framework/bin/pear_batch_install -p ../framework/Role
 /horde/src/framework/bin/install_dev
 
-#cp /horde/src/horde/config/conf.php.dist /horde/src/horde/config/conf.php
 cp /vagrant/horde-conf.php /horde/src/horde/config/conf.php
 cp /vagrant/imp-conf.php /horde/src/imp/config/conf.php
 cp /vagrant/imp-backends.local.php /horde/src/imp/config/backends.local/php
 cp /vagrant/kronolith-conf.php /horde/src/kronolith/config/conf.php
 cp /vagrant/turba-conf.php /horde/src/turba/config/conf.php
-#temp
 chown www-data:www-data /horde/src/horde/config/conf.php
 
 /horde/src/horde/bin/horde-db-migrate
+
+# Include hook to automatically set from_addr to username@localhost
+if [ "$INCLUDE_HOOKS" = "true" ]
+then
+    echo "<?php
+class Horde_Hooks
+{
+   public function prefs_init(\$pref, \$value, \$username, \$scope_ob)
+   {
+      switch (\$pref) {
+      case 'from_addr':
+           if (is_null(\$username)) {
+               return \$value;
+           }
+           return \$username . '@localhost';
+      }
+   }
+
+}" >> /horde/src/horde/config/hooks.php 
+  echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
+fi
+
 
 # Install Horde PEAR packages, so that we don't need to deal with those
 # dependencies
