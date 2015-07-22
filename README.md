@@ -14,6 +14,7 @@ Common to all images:
 
     - Installs MySQL, Dovecot, and Postfix configured for local delivery only.
       Email can be sent between any local users using e.g., testuser@localhost
+
     - By default, Horde is installed to /var/www/html/horde - this can be
       changed by editing shared/conf.sh file.
 
@@ -28,8 +29,16 @@ Common to all images:
       of the image. If you change the git-master-image you also need to change
       the provided horde-conf.php file as well.
 
+    - For the git images, any change to base configurations may require
+      corresponding changes to various horde config files. E.g., changing the
+      administive user/password will require corresponding change in imp's
+      backend file for cyrus etc...
+
 Available images:
 
 git-master-dev: Current git master.
+
+git-master-cyrus: Current git master using cyrus-imapd with kolab annotations
+                  available instead of stock dovecot.
 
 pear-horde-5.2: Installs the current Horde Groupware Webmail Edition.
