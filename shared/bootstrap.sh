@@ -14,11 +14,6 @@ add-apt-repository -y ppa:ondrej/php5
 apt-get update
 apt-get upgrade -y
 
-echo 'Provisioning MySQL server.'
-debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQLPASSWORD"
-debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQLPASSWORD"
-apt-get -y install mysql-server-5.5
-
 echo 'Installing expect.'
 apt-get -y install expect
 
