@@ -19,7 +19,8 @@ Common to all images:
 
     - The following users are created - username and passwords can be changed
       by editing the shared/conf.sh file:
-       - testuser/password
+       - demo/demo
+       - guest/guest
        - adminuser/adminpassword
 
 Available images:
