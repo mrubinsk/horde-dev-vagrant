@@ -16,9 +16,9 @@ fi
 
 #TODO
 #sudo stop dovecot
-#[ -d "/home/$TESTUSER/mail" ] && sudo rm -R /home/$TESTUSER/mail
-#sudo cp -Rp /vagrant/empty.mbox /home/$TESTUSER/mail/inbox.mbox
-#sudo chown -R $TESTUSER:$TESTUSER /home/$TESTUSER/mail
+#[ -d "/home/$TESTUSERONE/mail" ] && sudo rm -R /home/$TESTUSERONE/mail
+#sudo cp -Rp /vagrant/empty.mbox /home/$TESTUSERONE/mail/inbox.mbox
+#sudo chown -R $TESTUSERONE:$TESTUSERONE /home/$TESTUSER/mail
 #sudo start dovecot
 
 #echo 'Test mailbox restored'.

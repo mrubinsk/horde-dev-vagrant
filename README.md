@@ -1,7 +1,7 @@
 horde-dev-vagrant
 =================
 
-Vagrant images for Horde. These should be considered for 
+Vagrant images for Horde. These should be considered for
 DEVELOPMENT use only, or as a starting point for a more
 complete Vagrant image.
 

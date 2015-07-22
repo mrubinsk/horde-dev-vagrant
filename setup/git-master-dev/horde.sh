@@ -8,8 +8,13 @@ apt-get install -y git
 mkdir -p /horde/data
 mkdir -p /horde/src
 
-# Clone FRAMEWORK_5_2
-git clone --depth 1 https://github.com/horde/horde.git /horde/src
+# Clone Git master
+if [ "$GIT_DEPTH" = "shallow"]
+then
+    git clone --depth 1 https://github.com/horde/horde.git /horde/src
+else
+    git clone https://github.com/horde/horde.git /horde/src
+fi
 
 # Needed so we can copy the install_dev.conf file.
 chown vagrant:vagrant /horde/src/framework/bin
@@ -47,7 +52,7 @@ class Horde_Hooks
       }
    }
 
-}" >> /horde/src/horde/config/hooks.php 
+}" >> /horde/src/horde/config/hooks.php
   echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
 fi
 

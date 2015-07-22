@@ -33,3 +33,25 @@ export PHP_PEAR_SYSCONF_DIR=$HORDEDIR
 echo -e '$conf['server']['port'] = 8080;' | sudo tee -a $HORDEDIR/config/conf.php
 
 echo "SetEnv PHP_PEAR_SYSCONF_DIR $HORDEDIR\n" >> /etc/apache2/apache2.conf
+
+# Include hook to automatically set from_addr to username@localhost
+echo "Creating prefs hooks."
+if [ "$INCLUDE_HOOKS" = "true" ]
+then
+    echo "<?php
+class Horde_Hooks
+{
+   public function prefs_init(\$pref, \$value, \$username, \$scope_ob)
+   {
+      switch (\$pref) {
+      case 'from_addr':
+           if (is_null(\$username)) {
+               return \$value;
+           }
+           return \$username . '@localhost';
+      }
+   }
+
+}" >> /horde/src/horde/config/hooks.php
+  echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
+fi

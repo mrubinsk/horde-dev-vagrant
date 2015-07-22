@@ -8,7 +8,7 @@ echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 
 # Add PHP5 repository
 export LANG=C.UTF-8
-add-apt-repository -y ppa:ondrej/php5
+#add-apt-repository -y ppa:ondrej/php5
 
 # Upgrade Ubuntu
 apt-get update
@@ -22,8 +22,8 @@ if getent passwd $TESTUSERONE > /dev/null; then
     echo "$TESTUSERONE already exists"
 else
     echo "Creating User '$TESTUSERONE' with password '$TESTUSERONEPASS'"
-    sudo useradd $TESTUSER -m -s /bin/bash
-    echo "$TESTUSER:$TESTUSERPASS"|sudo chpasswd
+    sudo useradd $TESTUSERONE -m -s /bin/bash
+    echo "$TESTUSERONE:$TESTUSERONEPASS"|sudo chpasswd
     echo 'User created'
 fi
 
@@ -32,7 +32,7 @@ if getent passwd $TESTUSERTWO > /dev/null; then
     echo "$TESTUSERTWO already exists"
 else
     echo "Creating User '$TESTUSERTWO' with password '$TESTUSERTWOPASS'"
-    sudo useradd $TESTUSER -m -s /bin/bash
+    sudo useradd $TESTUSERTWO -m -s /bin/bash
     echo "$TESTUSERTWO:$TESTUSERTWOPASS"|sudo chpasswd
     echo 'User created'
 fi
