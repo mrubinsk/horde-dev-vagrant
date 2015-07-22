@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
 echo 'Setting ENV variables'
+
+# Path to web accessible directory for Horde.
 echo "export HORDEDIR=/var/www/html/horde" >> ~/.profile
-echo "export TESTUSER=testuser" >> ~/.profile
-echo "export TESTUSERPASS=password" >> ~/.profile
+
+# Test users
+echo "export TESTUSERONE=demo" >> ~/.profile
+echo "export TESTUSERPASS=demo" >> ~/.profile
+
+echo "export TESTUSERTWO=guest" >> ~/.profile
+echo "export TESTUSERTWOPASS=guest" >> ~/.profile
+
+# NOTE: MUST CHANGE THIS PASSWORD IF IMAGE IS PUBLIC!
 echo "export ADMINUSER=adminuser" >> ~/.profile
 echo "export ADMINUSERPASS=adminpassword" >> ~/.profile
-echo "export MYSQLPASSWORD=password" >> ~/.profile
 
-echo "export INCLUDE_HOOKS=true" >> ~/.profile
+# Password, if using MySQL.
+echo "export MYSQLPASSWORD=password" >> ~/.profile

@@ -18,12 +18,22 @@ echo 'Installing expect.'
 apt-get -y install expect
 
 # Generate a test user.
-if getent passwd $TESTUSER > /dev/null; then
-    echo "$TESTUSER already exists"
+if getent passwd $TESTUSERONE > /dev/null; then
+    echo "$TESTUSERONE already exists"
 else
-    echo "Creating User '$TESTUSER' with password '$TESTUSERPASS'"
+    echo "Creating User '$TESTUSERONE' with password '$TESTUSERONEPASS'"
     sudo useradd $TESTUSER -m -s /bin/bash
     echo "$TESTUSER:$TESTUSERPASS"|sudo chpasswd
+    echo 'User created'
+fi
+
+# Generate a test user.
+if getent passwd $TESTUSERTWO > /dev/null; then
+    echo "$TESTUSERTWO already exists"
+else
+    echo "Creating User '$TESTUSERTWO' with password '$TESTUSERTWOPASS'"
+    sudo useradd $TESTUSER -m -s /bin/bash
+    echo "$TESTUSERTWO:$TESTUSERTWOPASS"|sudo chpasswd
     echo 'User created'
 fi
 
