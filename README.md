@@ -13,7 +13,7 @@ Usage:
 Common to all images:
 
     - Installs MySQL, Dovecot, and Postfix configured for local delivery only.
-     Email can be sent between any local users using e.g., testuser@localhost
+      Email can be sent between any local users using e.g., testuser@localhost
     - By default, Horde is installed to /var/www/html/horde - this can be
       changed by editing shared/conf.sh file.
 
@@ -22,6 +22,11 @@ Common to all images:
        - demo/demo
        - guest/guest
        - adminuser/adminpassword
+
+    - Horde is reachable on port 8080 of the host running the virtual image.
+      This can be changed by changing the network config in the Vagrant file
+      of the image. If you change the git-master-image you also need to change
+      the provided horde-conf.php file as well.
 
 Available images:
 
