@@ -10,7 +10,7 @@ echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 export LANG=C.UTF-8
 add-apt-repository -y ppa:ondrej/php5
 
-# Upgrade Ubuntu 
+# Upgrade Ubuntu
 apt-get update
 apt-get upgrade -y
 
@@ -18,20 +18,6 @@ echo 'Provisioning MySQL server.'
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQLPASSWORD"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQLPASSWORD"
 apt-get -y install mysql-server-5.5
-
-echo 'Provisioning Environment with Dovecot';
-if which dovecot > /dev/null; then
-    echo 'Dovecot is already installed'
-else
-    echo 'Installing Dovecot'
-    debconf-set-selections <<< "dovecot-core dovecot-core/create-ssl-cert boolean true"
-    debconf-set-selections <<< "dovecot-core dovecot-core/ssl-cert-name string localhost"
-    sudo apt-get -qq -y install dovecot-core dovecot-imapd 
-    sudo touch /etc/dovecot/local.conf
-    echo -e 'mail_location = mbox:~/mail' | sudo tee -a /etc/dovecot/local.conf
-    echo -e 'disable_plaintext_auth = no' | sudo tee -a /etc/dovecot/local.conf
-    sudo restart dovecot
-fi
 
 echo 'Installing expect.'
 apt-get -y install expect
@@ -46,18 +32,6 @@ else
     echo 'User created'
 fi
 
-# TODO, make this configurable.
-echo 'Provisioning Environment with Postfix for LOCAL delivery ONLY.';
-if which postfix > /dev/null; then
-    echo 'Postfix is already installed.'
-else
-    debconf-set-selections <<< "postfix postfix/mailname string $HOSTNAME"
-    debconf-set-selections <<< "postfix postfix/main_mailer_type string Local only"
-    sudo apt-get install -y postfix
-    service postfix reload
-    echo -e 'home_mailbox = mail/inbox' | sudo tee -a /etc/postfix/main.cf
-fi
-
 # Generate the admin user.
 if getent passwd $ADMINUSER > /dev/null; then
     echo "$ADMINUSER already exists"
@@ -67,15 +41,6 @@ else
     echo "$ADMINUSER:$ADMINUSERPASS"|sudo chpasswd
     echo 'User created'
 fi
-
-#TODO
-#sudo stop dovecot
-#[ -d "/home/$TESTUSER/mail" ] && sudo rm -R /home/$TESTUSER/mail
-#sudo cp -Rp /vagrant/empty.mbox /home/$TESTUSER/mail/inbox.mbox
-#sudo chown -R $TESTUSER:$TESTUSER /home/$TESTUSER/mail
-#sudo start dovecot
- 
-#echo 'Test mailbox restored'.
 
 # Add PHP5/Apache from repo
 apt-get -y install apache2
