@@ -60,11 +60,6 @@ class Horde_Hooks
   echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
 fi
 
-
-# Install Horde PEAR packages, so that we don't need to deal with those
-# dependencies
-#/horde/src/framework/bin/pear_batch_install
-
-# Now install optional/required PEAR/PECL packages
-#/horde/src/framework/bin/pear_batch_install \
-#	-p .,../content,../gollem,../horde,../imp,../ingo,../kronolith,../mnemo,../nag,../passwd,../timeobjects,../trean,../turba
+echo "Adding Alias rule for ActiveSync"
+sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
+sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/html/horde/rpc.php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
