@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [ "$INSTALL_HORDE" = false ]
+then
+  exit 1
+fi
 
 echo 'Creating horde database.'
 mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
