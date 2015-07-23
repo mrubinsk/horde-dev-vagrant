@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "../../shared/users.sh"
   config.vm.provision :shell, path: "../../shared/mysql.sh"
   config.vm.provision :shell, path: "../../shared/dovecot.sh"
-  config.vm.provision :shell, path: "../../sharedpostfix_local.sh"
+  config.vm.provision :shell, path: "../../shared/postfix_local.sh"
 
   config.vm.provision :shell, path: "horde.sh"
 end
