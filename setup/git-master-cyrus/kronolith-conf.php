@@ -1,9 +1,7 @@
 <?php
 /* CONFIG START. DO NOT CHANGE ANYTHING IN OR AFTER THIS LINE. */
 // $Id: dfd147bc251f7d2d4b4e24fd73760c57c9bd805a $
-$conf['calendar']['params']['driverconfig'] = 'horde';
-$conf['calendar']['params']['utc'] = true;
-$conf['calendar']['driver'] = 'sql';
+$conf['calendar']['driver'] = 'kolab';
 $conf['storage']['params']['driverconfig'] = 'horde';
 $conf['storage']['driver'] = 'sql';
 $conf['calendars']['driver'] = 'default';
