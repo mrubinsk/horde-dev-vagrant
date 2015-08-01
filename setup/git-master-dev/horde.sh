@@ -28,10 +28,13 @@ cp /vagrant/registry.local.php /horde/src/horde/config
 
 cp /vagrant/horde-conf.php /horde/src/horde/config/conf.php
 cp /vagrant/imp-conf.php /horde/src/imp/config/conf.php
-cp /vagrant/imp-backends.local.php /horde/src/imp/config/backends.local/php
+cp /vagrant/imp-backends.local.php /horde/src/imp/config/backends.local.php
 cp /vagrant/kronolith-conf.php /horde/src/kronolith/config/conf.php
 cp /vagrant/turba-conf.php /horde/src/turba/config/conf.php
 chown www-data:www-data /horde/src/horde/config/conf.php
+
+#TODO - allow choosing between procmail and sieve easily.
+cp /vagrant/ingo-procmail-backends.local.php /horde/src/ingo/config/backends.local.php
 
 /horde/src/horde/bin/horde-db-migrate
 
@@ -53,7 +56,7 @@ class Horde_Hooks
    }
 
 }" >> /horde/src/horde/config/hooks.php
-  echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
+  cp /vagrant/conf.d/10-hooks.php /horde/src/horde/config/prefs.d/10-hooks.php
 fi
 
 

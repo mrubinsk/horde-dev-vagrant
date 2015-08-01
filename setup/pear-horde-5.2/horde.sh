@@ -53,5 +53,8 @@ class Horde_Hooks
    }
 
 }" >> /horde/src/horde/config/hooks.php
-  echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
+    cp /vagrant/prefs.d/10-hooks.php /horde/src/horde/config/prefs.d/10-hooks.php
 fi
+
+#TODO - allow choosing between procmail and sieve easily.
+cp /vagrant/ingo-procmail-backends.local.php /horde/src/ingo/config/backends.local.php
