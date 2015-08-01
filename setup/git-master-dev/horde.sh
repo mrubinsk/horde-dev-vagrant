@@ -56,6 +56,7 @@ class Horde_Hooks
    }
 
 }" >> /horde/src/horde/config/hooks.php
+  mkdir /horde/src/horde/config/prefs.d
   cp /vagrant/prefs.d/10-hooks.php /horde/src/horde/config/prefs.d/10-hooks.php
 fi
 
