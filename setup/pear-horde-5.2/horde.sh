@@ -52,9 +52,9 @@ class Horde_Hooks
       }
    }
 
-}" >> /horde/src/horde/config/hooks.php
-    cp /vagrant/prefs.d/10-hooks.php /horde/src/horde/config/prefs.d/10-hooks.php
+}" >> $HORDEDIR/config/hooks.php
+    cp /vagrant/prefs.d/10-hooks.php $HORDEDIR/config/prefs.d/10-hooks.php
 fi
 
 #TODO - allow choosing between procmail and sieve easily.
-cp /vagrant/ingo-procmail-backends.local.php /horde/src/ingo/config/backends.local.php
+cp /vagrant/ingo-procmail-backends.local.php $HORDEDIR/ingo/config/backends.local.php
