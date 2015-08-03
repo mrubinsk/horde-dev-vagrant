@@ -30,7 +30,7 @@ echo 'Running webmail-install.'
 export PHP_PEAR_SYSCONF_DIR=$HORDEDIR
 /vagrant/horde-install.sh
 
-echo -e '$conf['server']['port'] = 8080;' | sudo tee -a $HORDEDIR/config/conf.php
+echo -e "\$conf['server']['port'] = 8080;" | sudo tee -a $HORDEDIR/config/conf.php
 
 echo "SetEnv PHP_PEAR_SYSCONF_DIR $HORDEDIR\n" >> /etc/apache2/apache2.conf
 
