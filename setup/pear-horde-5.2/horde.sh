@@ -35,9 +35,13 @@ echo -e '$conf['server']['port'] = 8080;' | sudo tee -a $HORDEDIR/config/conf.ph
 echo "SetEnv PHP_PEAR_SYSCONF_DIR $HORDEDIR\n" >> /etc/apache2/apache2.conf
 
 # Include hook to automatically set from_addr to username@localhost
-echo "Creating prefs hooks."
 if [ "$INCLUDE_HOOKS" = "true" ]
 then
+  echo "Creating prefs hooks."
+  if [ -f "$HORDEDIR/config/hooks.php" ]
+  then
+      echo "$HORDEDIR/config/hooks.php already exists, skipping."
+  else
     echo "<?php
 class Horde_Hooks
 {
@@ -51,9 +55,21 @@ class Horde_Hooks
            return \$username . '@localhost';
       }
    }
-
 }" >> $HORDEDIR/config/hooks.php
     cp /vagrant/prefs.d/10-hooks.php $HORDEDIR/config/prefs.d/10-hooks.php
+  fi
+fi
+
+#TODO - configure this?
+if [ -f "$HORDEDIR/config/conf.d/10-cookie.php" ]
+then
+    echo "$HORDEDIR/config/conf.d/10-cookie.php already exists, skipping."
+else
+    echo "Setting empty cookie path/domain."
+    mkdir $HORDEDIR/config/conf.d
+    echo "<?php
+\$conf['cookie']['domain'] = '';
+\$conf['cookie']['path'] = '/';" >> $HORDEDIR/config/conf.d/10-cookie.php
 fi
 
 #TODO - allow choosing between procmail and sieve easily.
