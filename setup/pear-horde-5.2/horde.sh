@@ -74,3 +74,9 @@ fi
 
 #TODO - allow choosing between procmail and sieve easily.
 cp /vagrant/ingo-procmail-backends.local.php $HORDEDIR/ingo/config/backends.local.php
+
+# TODO: Configure switch to include the low memory config or not.
+echo 'Adding low memory configuration for mysql.'
+cp /vagrant/mysqld_low_memory_usage.cnf /etc/mysql/conf.d/mysqld_low_memory_usage.cnf
+/etc/init.d/mysql restart
+
