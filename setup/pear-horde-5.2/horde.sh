@@ -6,8 +6,8 @@ mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
 echo 'Provisioning Horde Groupware.'
 mkdir $HORDEDIR
 
-echo -e 'include_path="/usr/share/php:/usr/share/pear:$HORDEDIR/pear/php"' | sudo tee -a /etc/php5/apache2/php.ini
-echo -e 'include_path="/usr/share/php:/usr/share/pear:$HORDEDIR/pear/php"' | sudo tee -a /etc/php5/cli/php.ini
+#echo -e "include_path='/usr/share/php:/usr/share/pear:$HORDEDIR/pear/php'" | sudo tee -a /etc/php5/apache2/php.ini
+#echo -e "include_path='/usr/share/php:/usr/share/pear:$HORDEDIR/pear/php'" | sudo tee -a /etc/php5/cli/php.ini
 
 echo "Creating local PEAR install in $HORDEDIR"
 pear config-create $HORDEDIR $HORDEDIR/pear.conf
@@ -19,7 +19,7 @@ $HORDEDIR/pear/pear -c $HORDEDIR/pear.conf config-set -c horde umask 0022
 echo 'Setting preferred_state to beta.'
 $HORDEDIR/pear/pear -c $HORDEDIR/pear.conf config-set preferred_state beta
 
-echo 'Running horde_role script and setting horde_dir to $HORDEDIR'
+echo "Running horde_role script and setting horde_dir to $HORDEDIR"
 $HORDEDIR/pear/pear -c $HORDEDIR/pear.conf install horde/horde_role
 /vagrant/dohorderole.sh
 
@@ -27,16 +27,18 @@ echo 'Performing pear install.'
 $HORDEDIR/pear/pear -c $HORDEDIR/pear.conf install -a -B horde/webmail
 
 echo "Setting include_path into $HORDEDIR/config/horde.local.php"
-echo -e "<?php\nini_set('include_path', '$HORDEDIR/pear/php' . PATH_SEPARATOR . ini_get('include_path'));" | sudo tee $HORDEDIR/config/horde.local.php
+#echo -e "<?php\nini_set('include_path', '$HORDEDIR/pear/php' . PATH_SEPARATOR . ini_get('include_path'));" | sudo tee $HORDEDIR/config/horde.local.php
+# Needed since we are using separate pear.
+sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
+sudo awk '/<VirtualHost/ { print; print "SetEnv PHP_PEAR_SYSCONF_DIR $HORDEDIR\nphp_value include_path $HORDEDIR/pear/php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
+
+# Make this available to the installer.
+export PHP_PEAR_SYSCONF_DIR="$HORDEDIR"
 
 echo 'Running webmail-install.'
-export PHP_PEAR_SYSCONF_DIR=$HORDEDIR
 /vagrant/horde-install.sh
 
 echo -e "\$conf['server']['port'] = 8080;" | sudo tee -a $HORDEDIR/config/conf.php
-
-echo "SetEnv PHP_PEAR_SYSCONF_DIR $HORDEDIR\n" >> /etc/apache2/apache2.conf
-
 # Include hook to automatically set from_addr to username@localhost
 if [ "$INCLUDE_HOOKS" = "true" ]
 then
@@ -79,7 +81,7 @@ fi
 cp /vagrant/ingo-procmail-backends.local.php $HORDEDIR/ingo/config/backends.local.php
 
 # TODO: Configure switch to include the low memory config or not.
-echo 'Adding low memory configuration for mysql.'
-cp /vagrant/mysqld_low_memory_usage.cnf /etc/mysql/conf.d/mysqld_low_memory_usage.cnf
-/etc/init.d/mysql restart
+# echo 'Adding low memory configuration for mysql.'
+# cp /vagrant/mysqld_low_memory_usage.cnf /etc/mysql/conf.d/mysqld_low_memory_usage.cnf
+# /etc/init.d/mysql restart
 
