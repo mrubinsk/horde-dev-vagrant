@@ -14,6 +14,10 @@ export LANG=C.UTF-8
 apt-get update
 apt-get upgrade -y
 
+echo 'Ensuring desired locales are available.'
+locale-gen de_DE
+locale-gen de_DE.UTF-8
+
 echo 'Installing expect.'
 apt-get -y install expect
 
