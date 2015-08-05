@@ -65,7 +65,3 @@ class Horde_Hooks
 }" >> /horde/src/horde/config/hooks.php
   echo -e "<?php\n\$_prefs['from_addr']['hook'] = true;" >> /horde/src/horde/config/prefs.local.php
 fi
-
-echo "Adding Alias rule for ActiveSync"
-sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/html/horde/rpc.php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
