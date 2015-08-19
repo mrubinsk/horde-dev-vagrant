@@ -11,7 +11,12 @@ usermod -a -G users vagrant
 
 # Add PHP5 repository
 export LANG=C.UTF-8
-#add-apt-repository -y ppa:ondrej/php5
+
+# PHP 5.5
+add-apt-repository -y ppa:ondrej/php5
+
+# To use PHP 5.6, use:
+# add-apt-repository -y ppa:ondrej/php5-5.6
 
 # Upgrade Ubuntu
 apt-get update
