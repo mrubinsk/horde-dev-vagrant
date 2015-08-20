@@ -6,9 +6,6 @@ mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
 echo 'Provisioning Horde Groupware.'
 mkdir $HORDEDIR
 
-#echo -e "include_path='/usr/share/php:/usr/share/pear:$HORDEDIR/pear/php'" | sudo tee -a /etc/php5/apache2/php.ini
-#echo -e "include_path='/usr/share/php:/usr/share/pear:$HORDEDIR/pear/php'" | sudo tee -a /etc/php5/cli/php.ini
-
 echo "Creating local PEAR install in $HORDEDIR"
 pear config-create $HORDEDIR $HORDEDIR/pear.conf
 pear -c $HORDEDIR/pear.conf install pear
