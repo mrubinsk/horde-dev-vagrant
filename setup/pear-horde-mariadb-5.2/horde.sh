@@ -32,6 +32,9 @@ sudo awk '/<VirtualHost/ { print; print "SetEnv PHP_PEAR_SYSCONF_DIR /var/www/ht
 # Make this available to the installer.
 export PHP_PEAR_SYSCONF_DIR="$HORDEDIR"
 
+echo 'Restarting Apache.'
+/etc/init.d/apache2 restart
+
 echo 'Running webmail-install.'
 /vagrant/horde-install.sh
 

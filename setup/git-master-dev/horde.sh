@@ -36,6 +36,9 @@ chown www-data:www-data /horde/src/horde/config/conf.php
 #TODO - allow choosing between procmail and sieve easily.
 cp /vagrant/ingo-procmail-backends.local.php /horde/src/ingo/config/backends.local.php
 
+echo 'Restarting Apache.'
+/etc/init.d/apache2 restart
+
 /horde/src/horde/bin/horde-db-migrate
 
 # Include hook to automatically set from_addr to username@localhost

@@ -35,6 +35,9 @@ cp /vagrant/mnemo-conf.php /horde/src/mnemo/config/conf.php
 cp /vagrant/nag-conf.php /horde/src/nag/config/conf.php
 chown www-data:www-data /horde/src/horde/config/conf.php
 
+echo 'Restarting Apache.'
+/etc/init.d/apache2 restart
+
 # Install framework
 echo 'Linking Horde into webroot.'
 cp /vagrant/install_dev.conf /horde/src/framework/bin

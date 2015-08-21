@@ -40,7 +40,5 @@ echo "Adding Alias rule for ActiveSync"
 sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
 sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/html/horde/rpc.php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
 
-/etc/init.d/apache2 restart
-
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
