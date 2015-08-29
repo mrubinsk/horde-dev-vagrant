@@ -1,8 +1,8 @@
 #!/usr/bin/expect
-set env(PHP_PEAR_SYSCONF_DIR) /var/www/html/horde
+set env(PHP_PEAR_SYSCONF_DIR) /var/www/horde
 spawn php -d include_path=$env(HORDEDIR)/pear/php $env(HORDEDIR)/pear/webmail-install
 expect {Type your choice \[\]:}
-send "mysql\r" 
+send "mysql\r"
 expect {Username to connect to the database as* \[\]}
 send "root\r"
 expect {Password*}
@@ -24,4 +24,4 @@ send "\r"
 expect {Specify*}
 send "$env(ADMINUSER)\r"
 expect {Thank*}
-interact 
+interact

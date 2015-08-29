@@ -26,8 +26,8 @@ $HORDEDIR/pear/pear -c $HORDEDIR/pear.conf install -a -B horde/webmail
 #echo "Setting include_path into $HORDEDIR/config/horde.local.php"
 #echo -e "<?php\nini_set('include_path', '$HORDEDIR/pear/php' . PATH_SEPARATOR . ini_get('include_path'));" | sudo tee $HORDEDIR/config/horde.local.php
 # Needed since we are using separate pear.
-sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-sudo awk '/<VirtualHost/ { print; print "SetEnv PHP_PEAR_SYSCONF_DIR /var/www/html/horde\nphp_value include_path /var/www/html/horde/pear/php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
+sudo mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.bak
+sudo awk '/<VirtualHost/ { print; print "SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde\nphp_value include_path /var/www/horde/pear/php"; next}1' /etc/apache2/sites-available/default.bak > /etc/apache2/sites-available/default
 
 # Make this available to the installer.
 export PHP_PEAR_SYSCONF_DIR="$HORDEDIR"
