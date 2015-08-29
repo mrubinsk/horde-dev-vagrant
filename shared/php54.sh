@@ -12,8 +12,8 @@ apt-get -y install php5 php5-dev php-pear php5-mysql phpunit
 a2enmod rewrite
 
 echo "Adding Alias rule for ActiveSync"
-sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/html/horde/rpc.php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
+sudo mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.bak
+sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/horde/rpc.php"; next}1' /etc/apache2/sites-available/default.bak > /etc/apache2/sites-available/default
 
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
