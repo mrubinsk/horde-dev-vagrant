@@ -9,5 +9,5 @@ else
     debconf-set-selections <<< "postfix postfix/main_mailer_type string Local only"
     sudo apt-get install -y postfix
     service postfix reload
-    echo -e 'home_mailbox = mail/inbox' | sudo tee -a /etc/postfix/main.cf
+    postconf -e 'home_mailbox = mail/inbox'
 fi
