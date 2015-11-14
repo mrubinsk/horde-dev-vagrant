@@ -86,6 +86,11 @@ else
     cp /vagrant/conf.d/10-eas.php $HORDEDIR/config/conf.d/10-eas.php
 fi
 
+if [ "$IMAP_AUTH" = "true" ]
+then
+  cp /vagrant/conf.d/10-imapauth.php $HORDEDIR/config/conf.d/10-imapauth.
+fi
+
 #TODO - allow choosing between procmail and sieve easily.
 cp /vagrant/ingo-procmail-backends.local.php $HORDEDIR/ingo/config/backends.local.php
 
