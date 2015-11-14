@@ -77,6 +77,14 @@ else
 \$conf['cookie']['path'] = '/';" >> $HORDEDIR/config/conf.d/10-cookie.php
 fi
 
+#TODO configure this?
+echo "Enabling EAS support."
+if [ -f "$HORDEDIR/config/conf.d/10-eas.php" ]
+    echo "$HORDEDIR/config/conf.d/10-eas.php already exists, skipping."
+then
+    cp /vagrant/conf.d/10-eas.php $HORDEDIR/config/conf.d/10-eas.php
+fi
+
 #TODO - allow choosing between procmail and sieve easily.
 cp /vagrant/ingo-procmail-backends.local.php $HORDEDIR/ingo/config/backends.local.php
 
