@@ -89,6 +89,9 @@ fi
 if [ "$IMAP_AUTH" = "true" ]
 then
   cp /vagrant/conf.d/10-imapauth.php $HORDEDIR/config/conf.d/10-imapauth.
+  echo "<?php
+\$servers['imap']['hordeauth'] = true;" >> $HORDEDIR/imp/config/backends.local.php
+"
 fi
 
 #TODO - allow choosing between procmail and sieve easily.
