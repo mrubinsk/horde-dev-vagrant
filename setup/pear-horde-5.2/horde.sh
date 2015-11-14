@@ -80,8 +80,9 @@ fi
 #TODO configure this?
 echo "Enabling EAS support."
 if [ -f "$HORDEDIR/config/conf.d/10-eas.php" ]
-    echo "$HORDEDIR/config/conf.d/10-eas.php already exists, skipping."
 then
+    echo "$HORDEDIR/config/conf.d/10-eas.php already exists, skipping."
+else
     cp /vagrant/conf.d/10-eas.php $HORDEDIR/config/conf.d/10-eas.php
 fi
 
