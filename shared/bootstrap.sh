@@ -9,7 +9,6 @@ echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 echo "Adding vagrant user to users group"
 usermod -a -G users vagrant
 
-# Add PHP5 repository
 export LANG=C.UTF-8
 
 # Upgrade Ubuntu
