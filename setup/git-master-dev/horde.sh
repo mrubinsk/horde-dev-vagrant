@@ -9,7 +9,7 @@ mkdir -p /horde/data
 mkdir -p /horde/src
 
 # Clone Git master
-if [ "$GIT_DEPTH" = "shallow"]
+if [ "$GIT_DEPTH" = "shallow" ]
 then
     git clone --depth 1 https://github.com/horde/horde.git /horde/src
 else
