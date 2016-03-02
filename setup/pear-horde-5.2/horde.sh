@@ -83,6 +83,13 @@ else
 \$conf['cookie']['path'] = '/';" >> $HORDEDIR/config/conf.d/10-cookie.php
 fi
 
+if [ -f "$HORDEDIR/config/conf.d/10-aspell.php" ]
+then
+    echo "$HORDEDIR/config/conf.d/10-aspell.php already exists, skipping."
+else
+    cp /vagrant/conf.d/10-aspell.php $HORDEDIR/config/conf.d/10-aspell.php
+fi
+
 #TODO configure this?
 echo "Enabling EAS support."
 if [ -f "$HORDEDIR/config/conf.d/10-eas.php" ]
@@ -97,7 +104,6 @@ then
   cp /vagrant/conf.d/10-imapauth.php $HORDEDIR/config/conf.d/10-imapauth.
   echo "<?php
 \$servers['imap']['hordeauth'] = true;" >> $HORDEDIR/imp/config/backends.local.php
-"
 fi
 
 #TODO - allow choosing between procmail and sieve easily.

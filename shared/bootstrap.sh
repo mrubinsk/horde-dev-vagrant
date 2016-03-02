@@ -25,3 +25,6 @@ apt-get -y install expect
 echo "Installing Apache"
 apt-get -y install apache2
 
+echo "Insatlling Aspell"
+apt-get -y install aspell
+
