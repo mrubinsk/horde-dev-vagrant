@@ -43,7 +43,7 @@ echo 'Restarting Apache.'
 /etc/init.d/apache2 restart
 
 echo 'Running webmail-install.'
-/vagrant/horde-install.sh
+/vagrant/horde-install.expect
 
 cp /vagrant/conf/horde/* $HORDEDIR/config/
 cp /vagrant/conf/ingo/* $HORDEDIR/ingo/config/
