@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.provision :shell,
+    path: "../../shared/config.sh",
+    name: "Configuring environment"
+  config.vm.provision :shell,
+    path: "../../shared/bootstrap.sh",
+    name: "Bootstrapping OS"
+  config.vm.provision :shell,
+    path: "../../shared/php55.sh",
+    name: "Configuring for PHP 5.5"
+  config.vm.provision :shell,
+    path: "../../shared/mysql.sh",
+    name: "Installing MySQL"
+  config.vm.provision :shell,
+    path: "../../shared/postfix_local.sh",
+    name: "Installing Postfix and configuring for local delivery only."
+  config.vm.provision :shell,
+    path: "../../shared/cyrus.sh",
+    name: "Installing Cyrus"
+  config.vm.provision :shell,
+    path: "../../shared/cyrus_users.sh",
+    name: "Creating Cyrus users"
+  config.vm.provision :shell,
+    path: "horde.sh",
+    name: "Installing Horde"
+end
