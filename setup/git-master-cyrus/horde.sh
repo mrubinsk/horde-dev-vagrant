@@ -44,3 +44,4 @@ cp /vagrant/conf/install_dev.conf /horde/src/framework/bin
 
 echo 'Migrating Horde database.'
 /horde/src/horde/bin/horde-db-migrate
+/horde/src/horde/bin/horde-db-migrate
