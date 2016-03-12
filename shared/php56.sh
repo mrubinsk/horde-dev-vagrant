@@ -23,11 +23,14 @@ sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var
 pear config-set php_ini /etc/php5/apache2/php.ini
 
 # Needs testing
-# echo 'Installing pecl_http extension.'
-# pecl install pecl/raphf
-# pecl install pecl/propro
+# echo 'Installing PECL extensions'
+# pecl install pecl/msgpack-0.5.7
+# echo "extension=msgpack.so" >> /etc/php5/mods-available/msgpack.ini
+# php5enmod msgpack
+# pecl install pecl/raphf-1.1.2
+# pecl install pecl/propro-1.0.2
 # echo "extension=raphf.so
-# extension=propro.so" > /etc/php5/conf.d/http.ini
+# extension=propro.so" > /etc/php5/mods-available/http.ini
 # php5enmod http
-# pecl install pecl_http
-# echo "extension=http.so" >> /etc/php5/conf.d/http.ini
+# pecl install pecl_http-2.5.6
+# echo "extension=http.so" >> /etc/php5/mods-available/http.ini
