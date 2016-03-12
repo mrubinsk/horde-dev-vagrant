@@ -17,3 +17,13 @@ sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var
 
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
+
+# Needs testing
+# echo 'Installing pecl_http extension.'
+# pecl install pecl/raphf
+# pecl install pecl/propro
+# echo "extension=raphf.so
+# extension=propro.so" > /etc/php5/conf.d/http.ini
+# php5enmod http
+# pecl install pecl_http
+# echo "extension=http.so" >> /etc/php5/conf.d/http.ini
