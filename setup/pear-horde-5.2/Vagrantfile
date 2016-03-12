@@ -5,14 +5,34 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.provision :shell, path: "../../shared/config.sh"
-  config.vm.provision :shell, path: "../../shared/bootstrap.sh"
-  config.vm.provision :shell, path: "../../shared/php55.sh"
-  config.vm.provision :shell, path: "../../shared/users.sh"
-  config.vm.provision :shell, path: "../../shared/mysql.sh"
-  config.vm.provision :shell, path: "../../shared/dovecot.sh"
-  config.vm.provision :shell, path: "../../shared/postfix_local.sh"
-  config.vm.provision :shell, path: "../../shared/procmail.sh"
-  config.vm.provision :shell, path: "../../shared/vsftpd.sh"
-  config.vm.provision :shell, path: "horde.sh"
+  config.vm.provision :shell,
+    path: "../../shared/config.sh",
+    name: "Configuring environment"
+  config.vm.provision :shell,
+    path: "../../shared/bootstrap.sh",
+    name: "Bootstrapping OS"
+  config.vm.provision :shell,
+    path: "../../shared/php55.sh",
+    name: "Configuring for PHP 5.5"
+  config.vm.provision :shell,
+    path: "../../shared/users.sh",
+    name: "Adding users"
+  config.vm.provision :shell,
+    path: "../../shared/mysql.sh",
+    name: "Installing MySQL"
+  config.vm.provision :shell,
+    path: "../../shared/dovecot.sh",
+    name: "Installing Dovecot"
+  config.vm.provision :shell,
+    path: "../../shared/postfix_local.sh",
+    name: "Installing Postfix and configuring for local delivery only."
+  config.vm.provision :shell,
+    path: "../../shared/procmail.sh",
+    name: "Installing Procmail"
+  config.vm.provision :shell,
+    path: "../../shared/vsftpd.sh",
+    name: "Installing vsftp"
+  config.vm.provision :shell,
+    path: "horde.sh",
+    name: "Installing Horde"
 end
