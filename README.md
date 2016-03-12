@@ -13,6 +13,8 @@ Usage:
 
 Notes:
 
+    - All images based on Ubuntu Trusty64 unless otherwise noted.
+
     - Installs either MySQL or MariaDB,
       Dovecot or Cyrus, and Postfix (configured for local delivery only).
       Email can be sent between any local users using e.g., testuser@localhost
@@ -44,13 +46,18 @@ tested. The php7 image and some of the cyrus images may still need some tweaks.
 
 git-master-dev:         Current git master.
 
-git-master-cyrus:       Current git master using cyrus-imapd with kolab
+git-master-dev-32bit:   Current git master running on 32bit Ubuntu Trusty.
+
+git-master-cyrus:       Current git master using Cyrus with kolab
                         annotations available instead of stock dovecot.
 
 git-master-php7:        Current git master running on PHP7.
 
 pear-horde-5.2:         Installs the current Horde Groupware Webmail Edition
                         running on PHP 5.5.
+
+pear-horde-cyrus-5.2:   Same as pear-horde-5.2, but running Cyrus instead of
+                        instead of Dovecot and setup for Kolab.
 
 pear-horde-mariadb-5.2: Same as pear-horde-5.2, but running MariaDB instead of
                         mySql.
