@@ -3,47 +3,24 @@
 echo 'Creating horde database.'
 mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
 
-echo 'Provisioning Horde Groupware.'
-mkdir $HORDEDIR
-
-echo "Creating local PEAR install in $HORDEDIR"
-pear config-create $HORDEDIR $HORDEDIR/pear.conf
-pear -c $HORDEDIR/pear.conf install pear
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf channel-discover pear.horde.org
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf config-set umask 0022
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf config-set -c horde umask 0022
-
-echo 'Setting preferred_state to beta.'
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf config-set preferred_state beta
-
-echo "Running horde_role script and setting horde_dir to $HORDEDIR"
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf install horde/horde_role
-
-# The following is instead of running pear run-scripts horde/horde_role
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf config-set -c horde horde_dir $HORDEDIR
-
-echo 'Performing pear install.'
-$HORDEDIR/pear/pear -c $HORDEDIR/pear.conf install -a -B horde/webmail
-
-# Needed since we are using separate pear.
-sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-sudo awk '/<VirtualHost/ { print; print "SetEnv PHP_PEAR_SYSCONF_DIR /var/www/html/horde\nphp_value include_path /var/www/html/horde/pear/php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
-
-# Outlook EAS testing requires SSL.
-sudo a2enmod ssl
-
-sudo mv /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
-sudo awk '/<VirtualHost/ { print; print "SetEnv PHP_PEAR_SYSCONF_DIR /var/www/html/horde\nphp_value include_path /var/www/html/horde/pear/php"; next}1' /etc/apache2/sites-available/default-ssl.conf.bak > /etc/apache2/sites-available/default-ssl.conf
-
-# Make this available to the installer.
-#
-export PHP_PEAR_SYSCONF_DIR="$HORDEDIR"
-
-echo 'Restarting Apache.'
-/etc/init.d/apache2 restart
-
 echo 'Running webmail-install.'
-/vagrant/horde-install.expect
+echo "Configuring PEAR"
+pear channel-discover pear.horde.org
+pear config-set umask 0022 system
+pear config-set preferred_state beta system
+pear config-set auto_discover 1 system
+
+echo "Installing Horde_Role and setting horde_dir to $HORDEDIR"
+pear install horde/horde_role
+pear config-set horde_dir $HORDEDIR system
+
+echo "Performing PEAR installs"
+pecl install horde/horde_lz4
+echo "extension=horde_lz4.so" > /etc/php5/mods-available/horde_lz4.ini
+php5enmod horde_lz4
+pear install Date_Holidays-alpha#all Text_LanguageDetect-alpha
+echo "Be patient, installing Horde now..."
+pear install -a -B horde/webmail
 
 cp /vagrant/conf/horde/* $HORDEDIR/config/
 cp /vagrant/conf/ingo/* $HORDEDIR/ingo/config/
