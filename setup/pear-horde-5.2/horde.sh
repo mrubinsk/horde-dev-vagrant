@@ -22,12 +22,12 @@ pear install Date_Holidays-alpha#all Text_LanguageDetect-alpha
 echo "Be patient, installing Horde now..."
 pear install -a -B horde/webmail
 
+echo "Running webmail-install"
+/vagrant/horde-install.expect
+
+echo "Finishing configuration"
 cp /vagrant/conf/horde/* $HORDEDIR/config/
 cp /vagrant/conf/ingo/* $HORDEDIR/ingo/config/
-
-#Change the following if Vagrant machine configured to use a different port.
-# TODO: utilize an environment variable in the Vagrantfile.
-echo -e "\$conf['server']['port'] = 8080;" | sudo tee -a $HORDEDIR/config/conf.php
 
 # Purposely do not include the following in the conf.local.php file since they
 # either are, or will be, switchable via vagrant config file.
@@ -42,9 +42,3 @@ then
   echo "<?php
 \$servers['imap']['hordeauth'] = true;" >> $HORDEDIR/imp/config/backends.local.php
 fi
-
-# TODO: Configure switch to include the low memory config or not.
-# echo 'Adding low memory configuration for mysql.'
-# cp /vagrant/mysqld_low_memory_usage.cnf /etc/mysql/conf.d/mysqld_low_memory_usage.cnf
-# /etc/init.d/mysql restart
-
