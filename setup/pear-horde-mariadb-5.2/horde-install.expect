@@ -1,6 +1,6 @@
 #!/usr/bin/expect
-set env(PHP_PEAR_SYSCONF_DIR) /var/www/html/horde
-spawn php -d include_path=$env(HORDEDIR)/pear/php $env(HORDEDIR)/pear/webmail-install
+set timeout 60
+spawn webmail-install
 expect {Type your choice \[\]:}
 send "mysql\r"
 expect {Username to connect to the database as* \[\]}
