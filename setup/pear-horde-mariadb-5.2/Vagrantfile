@@ -36,4 +36,3 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "horde.sh",
     name: "Installing Horde"
 end
-end

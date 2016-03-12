@@ -2,7 +2,7 @@
 set env(PHP_PEAR_SYSCONF_DIR) /var/www/html/horde
 spawn php -d include_path=$env(HORDEDIR)/pear/php $env(HORDEDIR)/pear/webmail-install
 expect {Type your choice \[\]:}
-send "mysql\r" 
+send "mysql\r"
 expect {Username to connect to the database as* \[\]}
 send "root\r"
 expect {Password*}
@@ -21,7 +21,7 @@ expect {Certification Authority to use for SSL connections \[\]}
 send "\r"
 expect {Type your choice \[false\]:}
 send "\r"
-expect {Specify*}
+expect {*(optional):}
 send "$env(ADMINUSER)\r"
 expect {Thank*}
-interact 
+interact
