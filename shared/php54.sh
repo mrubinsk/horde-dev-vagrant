@@ -12,6 +12,8 @@ echo "Upgrading PEAR"
 pear channel-update pear
 pear upgrade -c pear
 
+pear install Math_BigInteger
+
 # enable mod_rewrite
 a2enmod rewrite
 
