@@ -31,7 +31,7 @@ cp /vagrant/conf/kronolith/conf.php $HORDEDIR/kronolith/config/conf.d/kolab.php
 
 # Outlook EAS testing requires SSL.
 sudo a2enmod ssl
-sudo mv /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
+sudo a2ensite default-ssl
 
 echo 'Restarting Apache.'
 /etc/init.d/apache2 restart

@@ -33,7 +33,11 @@ cp /vagrant/conf/ingo/* $HORDEDIR/ingo/config/
 # either are, or will be, switchable via vagrant config file.
 #TODO configure this?
 echo "Enabling EAS support."
-cat /vagrant/conf.d/10-eas.php >> $HORDEDIR/config/horde.local.php
+cat /vagrant/conf.d/10-eas.php >> $HORDEDIR/config/conf.local.php
+
+# Outlook EAS testing requires SSL.
+sudo a2enmod ssl
+sudo a2ensite default-ssl
 
 # Use IMAP AUTH?
 if [ "$IMAP_AUTH" = "true" ]
