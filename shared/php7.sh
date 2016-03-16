@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Provisioning for PHP 5.6.x"
+echo "Provisioning for PHP 7.0"
 
 # PHP 5.6
 add-apt-repository ppa:ondrej/php

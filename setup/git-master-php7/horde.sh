@@ -29,7 +29,7 @@ cp /vagrant/conf/ingo/* /horde/src/ingo/config/
 chown www-data:www-data /horde/src/horde/config/conf.php
 
 # Install framework
-cp /vagrant/install_dev.conf /horde/src/framework/bin
+cp /vagrant/conf/install_dev.conf /horde/src/framework/bin
 /horde/src/framework/bin/pear_batch_install -p ../framework/Role
 /horde/src/framework/bin/install_dev
 
