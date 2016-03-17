@@ -2,7 +2,7 @@
 
 # Add PHP config to apache before restart.
 # @todo should do this in shared/php7-dev.sh, but the file won't be in the VM.
-cp /vagrant/conf/apache/php7.conf /etc/apache/conf-available
+cp /vagrant/conf/apache/php7.conf /etc/apache2/conf-available
 a2enconf php7
 
 #Clean up
