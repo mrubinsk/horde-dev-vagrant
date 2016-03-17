@@ -29,3 +29,6 @@ apt-get -y install apache2 libcurl4-openssl-dev libpcre3-dev
 echo "Installing Aspell"
 apt-get -y install aspell
 
+echo "Installing Imagemagick"
+apt-get -y install imagemagick
+
