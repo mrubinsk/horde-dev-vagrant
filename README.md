@@ -22,8 +22,9 @@ Notes:
     - Images using various versions of PHP - 5.4, 5.5, 7.0. This is selected
       by choosing the shared/phpxx.sh file desired in the Vagrantfile.
 
-    - By default, Horde is installed to /var/www/html/horde - this can be
-      changed by editing shared/conf.sh file.
+    - By default, Horde's web root is installed to /var/www/html/horde - this
+      can be changed by editing shared/conf.sh file. For the Git images, the
+      source tree is installed to /horde/src.
 
     - The following users are created - username and passwords can be changed
       by editing the shared/conf.sh file:
@@ -33,10 +34,11 @@ Notes:
 
     - Horde is reachable on port 8080 of the host running the virtual image.
       This can be changed by changing the network config in the Vagrantfile
-      of the image. If you change the git-master-image you also need to change
-      the provided horde-conf.php file as well.
+      of the image. If you change this setting you may also need to change
+      Horde's config/conf.php file as well to point to the correct IP and/or
+      Port.
 
-    - For the git images, any change to base configurations may require
+    - For the Git images, any change to base configurations may require
       corresponding changes to various horde config files. E.g., changing the
       administive user/password will require corresponding change in imp's
       backend file for cyrus etc...
@@ -44,14 +46,17 @@ Notes:
 Following are the available images. The pear images are complete and more fully
 tested. The php7 image and some of the cyrus images may still need some tweaks.
 
-git-master-dev:         Current git master.
+git-master-dev:         Current Git master.
 
-git-master-dev-32bit:   Current git master running on 32bit Ubuntu Trusty.
+git-master-dev-32bit:   Current Git master running on 32bit Ubuntu Trusty.
 
-git-master-cyrus:       Current git master using Cyrus with kolab
+git-master-cyrus:       Current Git master using Cyrus with kolab
                         annotations available instead of stock dovecot.
 
-git-master-php7:        Current git master running on PHP7.
+git-master-php7:        Current Git master running on PHP7.
+
+git-master-php7-dev:    Current Git master running on a compiled checkout of
+                        PHP's master branch (currently 7.1-dev).
 
 pear-horde-5.2:         Installs the current Horde Groupware Webmail Edition
                         running on PHP 5.5.
