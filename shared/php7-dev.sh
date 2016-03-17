@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
 
 echo "Provisioning for PHP 7-dev"
-
-apt-get update
-apt-get install libldap2-dev \
-  libldap-2.4-2 \
-  libtool \
+apt-get -y install libtool \
   libzip-dev \
   lbzip2 \
   libxml2-dev \
-  bzip2 \
   bison \
   libbz2-dev \
   apache2-dev \
@@ -17,8 +12,6 @@ apt-get install libldap2-dev \
   libpng-dev \
   libmcrypt-dev \
   libmysqlclient-dev \
-  mysql-server \
-  mysql-common \
   git \
   autoconf \
   libicu-dev
@@ -53,6 +46,9 @@ make install
 
 # enable mod_rewrite and PHP7
 a2enmod rewrite
+a2dismod mpm_worker
+a2dismod mpm_event
+a2enmod mpm_prefork
 a2enmod php7
 
 echo "Adding Alias rule for ActiveSync"
@@ -61,3 +57,10 @@ sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var
 
 # Add php-ini location
 pear config-set php_ini /etc/php5/apache2/php.ini
+
+echo "Upgrading PEAR"
+pear channel-update pear
+pear upgrade -c pear
+
+pear install channel://pear.php.net/Math_BigInteger
+pear install channel://pear.php.net/Net_DNS2
