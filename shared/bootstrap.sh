@@ -26,6 +26,6 @@ apt-get -y install expect
 echo "Installing Apache"
 apt-get -y install apache2 libcurl4-openssl-dev libpcre3-dev
 
-echo "Insatlling Aspell"
+echo "Installing Aspell"
 apt-get -y install aspell
 
