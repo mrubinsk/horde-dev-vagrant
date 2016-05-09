@@ -1,4 +1,3 @@
-<?php
 $conf['auth']['admins'] = array('adminuser');
 $conf['auth']['checkip'] = true;
 $conf['auth']['checkbrowser'] = true;

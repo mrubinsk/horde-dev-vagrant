@@ -1,4 +1,3 @@
-<?php
 $conf['activesync']['params']['driverconfig'] = 'horde';
 $conf['activesync']['storage'] = 'Sql';
 $conf['activesync']['emailsync'] = true;
