@@ -68,3 +68,8 @@ pear-horde-mariadb-5.2: Same as pear-horde-5.2, but running MariaDB instead of
                         mySql.
 
 pear-horde-php54-5.2:   Same as pear-horde-5.2, but running on PHP 5.4.
+
+Note: the two oracle images require a bit of setup to use correctly, and they
+only include client libraries, not the server. The libraries required cannot be
+distributed. These images are here for my use. You are free to use them if you
+set them up correctly, but don't expect them to work out of the box.

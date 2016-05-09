@@ -1,0 +1,33 @@
+#!/usr/bin/expect
+set timeout 60
+spawn webmail-install
+expect {Type your choice \[\]:}
+send "oci8\r"
+expect {Username to connect to the database as* \[\]}
+send "horde\r"
+expect {Password*}
+send "horde\r"
+expect {Internally used charset* \[utf-8\]}
+send "\r"
+expect {Type your choic \[easy\]:}
+send "\r"
+expect {Database server*}
+send "192.168.1.60\r"
+expect {Port*}
+send "\r"
+expect {Service*}
+send "\r"
+expect {Server*}
+send "\r"
+expect {Instance*}
+send "orcl\r"
+expect {Type your choice \[0\]:}
+send "\r"
+expect {Certification Authority to use for SSL connections \[\]}
+send "\r"
+expect {Type your choice \[false\]:}
+send "\r"
+expect {Specify*}
+send "$env(ADMINUSER)\r"
+expect {Thank*}
+interact
