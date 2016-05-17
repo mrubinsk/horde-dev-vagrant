@@ -6,7 +6,7 @@ echo "Provisioning for PHP 5.5.x"
 add-apt-repository -y ppa:ondrej/php5
 apt-get update
 
-apt-get -y install php5 php5-dev php-pear php5-mysql php5-intl php5-tidy php5-mcrypt php5-gd
+apt-get -y install php5 php5-dev php-pear php5-mysql php5-intl php5-tidy php5-mcrypt php5-gd php5-imagick
 
 echo "Upgrading PEAR"
 pear channel-update pear
