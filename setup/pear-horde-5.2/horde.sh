@@ -28,6 +28,7 @@ echo "Running webmail-install"
 echo "Finishing configuration"
 cp /vagrant/conf/horde/* $HORDEDIR/config/
 cp /vagrant/conf/ingo/* $HORDEDIR/ingo/config/
+cp /vagrant/conf/imp/* $HORDEDIR/imp/config/
 
 # Purposely do not include the following in the conf.local.php file since they
 # either are, or will be, switchable via vagrant config file.
