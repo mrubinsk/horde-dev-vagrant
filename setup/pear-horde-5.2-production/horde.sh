@@ -11,7 +11,7 @@ newdb="CREATE DATABASE mail;
 grant all on mail.* to 'mail'@'localhost' identified by '$MYSQLMAILPASSWORD';
 grant all on mail.* to 'mail'@'127.0.0.1' identified by '$MYSQLMAILPASSWORD';"
 
-mysql -u root --password=$MYSQLPASSWORD < echo $newdb
+echo $newdb | mysql -u root --password=$MYSQLPASSWORD
 mysql -u root --password=$MYSQLPASSWORD < /vagrant/postfixadmin_schema.sql
 
 echo 'Running webmail-install.'
