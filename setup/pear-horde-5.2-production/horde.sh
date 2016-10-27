@@ -14,6 +14,10 @@ grant all on mail.* to 'mail'@'127.0.0.1' identified by '$MYSQLMAILPASSWORD';"
 echo $newdb | mysql -u root --password=$MYSQLPASSWORD
 mysql -u root --password=$MYSQLPASSWORD < /vagrant/postfixadmin_schema.sql
 
+# Create initial user.
+echo "INSERT INTO domain (name, description) VALUES ('$DOMAIN', 'First Domain')" | mysql -u root --password=$MYSQLPASSWORD mail
+echo "INSERT INTO mailbox (domain_id, email, password) VALUES (1, '$ADMINUSER', ENCRYPT('$ADMINUSERPASSWORD', CONCAT('\$6\$', SUBSTRING(SHA(RAND()), -16))))" | mysql -u root --password=$MYSQLPASSWORD mail
+
 echo 'Running webmail-install.'
 echo "Configuring PEAR"
 pear channel-discover pear.horde.org
