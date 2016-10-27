@@ -8,7 +8,7 @@ pear config-set auto_discover 1 system
 
 echo "Installing Horde_Role and setting horde_dir to $HORDEDIR"
 pear install horde/horde_role
-pear config-set horde_dir $HORDEDIR system
+pear config-set horde_dir $HORDEDIR
 
 echo "Performing PEAR installs"
 pecl install horde/horde_lz4

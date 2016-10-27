@@ -8,6 +8,10 @@ else
     debconf-set-selections <<< "postfix postfix/mailname string $HOSTNAME"
     debconf-set-selections <<< "postfix postfix/main_mailer_type string Local only"
     sudo apt-get install -y postfix
-    service postfix reload
     postconf -e 'home_mailbox = mail/inbox'
+    postconf -e "myhostname = $HOSTNAME"
+    postconf -e "mydomain = $HOSTNAME"
+    postconf -e "myorigin = /$mydomain"
+    postconf -e "mydestination = $HOSTNAME"
+    service postfix reload
 fi

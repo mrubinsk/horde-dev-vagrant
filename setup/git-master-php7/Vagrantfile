@@ -17,22 +17,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
   config.vm.provision :shell,
-    path: "../../shared/php7.sh",
+    path: "../../shared/php/php7.sh",
     name: "Configuring for PHP 7"
   config.vm.provision :shell,
     path: "../../shared/users.sh",
     name: "Creating users"
   config.vm.provision :shell,
-    path: "../../shared/mysql.sh",
+    path: "../../shared/mysql/mysql.sh",
     name: "Installing MySQL"
   config.vm.provision :shell,
-    path: "../../shared/dovecot.sh",
+    path: "../../shared/dovecot/dovecot.sh",
     name: "Installing Dovecot"
   config.vm.provision :shell,
-    path: "../../shared/postfix_local.sh",
+    path: "../../shared/postfix/postfix_local.sh",
     name: "Installing Postfix and configuring for local delivery only."
   config.vm.provision :shell,
-    path: "../../shared/procmail.sh",
+    path: "../../shared/postfix/procmail.sh",
     name: "Installing Procmail"
   config.vm.provision :shell,
     path: "../../shared/vsftpd.sh",

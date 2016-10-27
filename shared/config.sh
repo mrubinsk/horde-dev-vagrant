@@ -19,8 +19,9 @@ echo "export ADMINUSERPASS=adminpassword" >> ~/.profile
 # Password, if using MySQL.
 echo "export MYSQLPASSWORD=password" >> ~/.profile
 
-# Include the hooks to automatically create from_addr prefs.
-echo "export INCLUDE_HOOKS=true" >> ~/.profile
+# Password for the 'mail' user, if using.
+echo "export MYSQLMAILPASSWORD=mailpassword" >> ~/.profile
 
 # Use IMAP auth (default is Application/IMP).
 # echo "export IMAP_AUTH=true" >> ~/.profile
+

@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  #config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "public_network", ip: "192.168.1.51"
+  config.vm.provision "shell",
+    path: "../../shared/bootstrap.sh",
+    name: "Bootstrapping OS"
+  config.vm.provision "shell",
+    path: "../../shared/config.sh",
+    name: "Configuring environment"
+  config.vm.provision "shell",
+    path: "config.sh",
+    name: "Configuring environment [local]"
+  config.vm.provision "shell",
+    path: "../../shared/cert_regen.sh",
+    name: "Reconfiguring default SSL certificate."
+  config.vm.provision "shell",
+    path: "../../shared/diffiehelman.sh",
+    name: "Securing OpenSSL."
+  config.vm.provision "shell",
+    path: "../../shared/php/php56.sh",
+    name: "Configuring for PHP 5.6"
+  config.vm.provision "shell",
+    path: "../../shared/virtual_users.sh",
+    name: "Adding vmail user."
+  config.vm.provision "shell",
+    path: "../../shared/mysql/mysql.sh",
+    name: "Installing MySQL"
+  config.vm.provision "shell",
+    path: "../../shared/dovecot/dovecot_sql.sh",
+    name: "Installing Dovecot"
+  config.vm.provision "shell",
+    path: "../../shared/postfix/postfix_sql.sh",
+    name: "Installing and configuring Postfix."
+  config.vm.provision "shell",
+    path: "../../shared/postfix/amavisd.sh",
+    name: "Installing Amavisd."
+  config.vm.provision "shell",
+    path: "horde.sh",
+    name: "Installing Horde"
+  config.vm.provision "shell",
+    path: "post.sh",
+    name: "Performing post-install tasks"
+end

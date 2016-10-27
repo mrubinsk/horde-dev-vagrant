@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
   config.vm.provision "shell",
-    path: "../../shared/php55.sh",
+    path: "../../shared/php/php55.sh",
     name: "Configuring for PHP 5.5"
   config.vm.provision "shell",
     path: "../../shared/users.sh",
@@ -22,13 +22,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/oracle.sh",
     name: "Installing Oracle"
   config.vm.provision "shell",
-    path: "../../shared/dovecot.sh",
+    path: "../../shared/dovecot/dovecot.sh",
     name: "Installing Dovecot"
   config.vm.provision "shell",
-    path: "../../shared/postfix_local.sh",
+    path: "../../shared/postfix/postfix_local.sh",
     name: "Installing Postfix and configuring for local delivery only."
   config.vm.provision "shell",
-    path: "../../shared/procmail.sh",
+    path: "../../shared/postfix/procmail.sh",
     name: "Installing Procmail"
   config.vm.provision "shell",
     path: "../../shared/vsftpd.sh",

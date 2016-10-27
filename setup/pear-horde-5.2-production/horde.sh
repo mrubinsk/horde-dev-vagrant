@@ -3,6 +3,17 @@
 echo 'Creating horde database.'
 mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
 
+# This will create just the tables that are needed for Horde to manage
+# the users and will match the schema that those tables would have under
+# POSTFIXADMIN.
+#
+newdb="CREATE DATABASE mail;
+grant all on mail.* to 'mail'@'localhost' identified by '$MYSQLMAILPASSWORD';
+grant all on mail.* to 'mail'@'127.0.0.1' identified by '$MYSQLMAILPASSWORD';"
+
+mysql -u root --password=$MYSQLPASSWORD < echo $newdb
+mysql -u root --password=$MYSQLPASSWORD < /vagrant/postfixadmin_schema.sql
+
 echo 'Running webmail-install.'
 echo "Configuring PEAR"
 pear channel-discover pear.horde.org
@@ -12,7 +23,7 @@ pear config-set auto_discover 1 system
 
 echo "Installing Horde_Role and setting horde_dir to $HORDEDIR"
 pear install horde/horde_role
-pear config-set horde_dir $HORDEDIR
+pear config-set horde_dir $HORDEDIR system
 
 echo "Performing PEAR installs"
 pecl install horde/horde_lz4
@@ -28,7 +39,6 @@ echo "Running webmail-install"
 echo "Finishing configuration"
 cp /vagrant/conf/horde/* $HORDEDIR/config/
 cp /vagrant/conf/ingo/* $HORDEDIR/ingo/config/
-cp /vagrant/conf/imp/* $HORDEDIR/imp/config/
 
 # Purposely do not include the following in the conf.local.php file since they
 # either are, or will be, switchable via vagrant config file.

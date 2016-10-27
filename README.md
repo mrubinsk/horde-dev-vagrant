@@ -73,3 +73,11 @@ Note: the two oracle images require a bit of setup to use correctly, and they
 only include client libraries, not the server. The libraries required cannot be
 distributed. These images are here for my use. You are free to use them if you
 set them up correctly, but don't expect them to work out of the box.
+
+
+
+@TODO:
+
+Some files need to be present in /vagrant, but really should be shared. We
+should store them in shared, but copy them to /vagrant instead of placing them
+in individual /setup/* folders.

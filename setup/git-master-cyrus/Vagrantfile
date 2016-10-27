@@ -16,19 +16,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
   config.vm.provision :shell,
-    path: "../../shared/php54.sh",
+    path: "../../shared/php/php54.sh",
     name: "Configuring for PHP 5.4"
   config.vm.provision :shell,
-    path: "../../shared/mysql.sh",
+    path: "../../shared/mysql/mysql.sh",
     name: "Installing MySQL"
   config.vm.provision :shell,
-    path: "../../shared/postfix_local.sh",
+    path: "../../shared/postfix/postfix_local.sh",
     name: "Installing Postfix and configuring for local delivery only."
   config.vm.provision :shell,
-    path: "../../shared/cyrus.sh",
+    path: "../../shared/cyrus/cyrus.sh",
     name: "Installing Cyrus"
   config.vm.provision :shell,
-    path: "../../shared/cyrus_users.sh",
+    path: "../../shared/cyrus/cyrus_users.sh",
     name: "Creating Cyrus users"
   config.vm.provision :shell,
     path: "horde.sh",
