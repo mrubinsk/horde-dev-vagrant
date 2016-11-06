@@ -1,5 +1,5 @@
 echo "Installing alien."
-apt-get  -y install alien libaio1
+apt-get install -y alien libaio1
 
 echo "Installing Oracle client libraries."
 alien -i /vagrant/oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
