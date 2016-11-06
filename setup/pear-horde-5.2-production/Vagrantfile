@@ -45,6 +45,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/postfix/amavisd.sh",
     name: "Installing Amavisd."
   config.vm.provision "shell",
+    path: "../../shared/postfix/dkim_spf.sh",
+    name: "Installing DKIM/SPF."
+  config.vm.provision "shell",
     path: "horde.sh",
     name: "Installing Horde"
   config.vm.provision "shell",
