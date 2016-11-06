@@ -64,8 +64,6 @@ else
     postconf -e 'virtual_alias_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf'
     postconf -e 'virtual_mailbox_domains = mysql:/etc/postfix/mysql_virtual_domains_maps.cf'
     postconf -e 'virtual_transport = dovecot'
-    #postconf -e 'content_filter = amavis:[127.0.0.1]:10024'
-
 
     postconf -M submission/inet="submission       inet       n       -       -       -       -       smtpd"
     postconf -P submission/inet/syslog_name=postconf/submission
@@ -74,11 +72,11 @@ else
     postconf -P submission/inet/smtpd_client_restrictions=permit_sasl_authenticated,permit_mynetworks,reject
 
 
-    postconf -M amavis/unix="amavis     unix    -   -   -   - 3 smtp"
-    postconf -P amavis/unix/smtp_data_done_timeout=1200
-    postconf -P amavis/unix/smtp_send_xforward_command=yes
-    postconf -P amavis/unix/disable_dns_lookups=yes
-    postconf -P amavis/unix/max_use=20
+    postconf -M smtp-amavis/unix="smtp-amavis     unix    -   -   -   - 3 smtp"
+    postconf -P smtp-amavis/unix/smtp_data_done_timeout=1200
+    postconf -P smtp-amavis/unix/smtp_send_xforward_command=yes
+    postconf -P smtp-amavis/unix/disable_dns_lookups=yes
+    postconf -P smtp-amavis/unix/max_use=20
 
     postconf -M 127.0.0.1:10025/inet="127.0.0.1:10025    inet  n     -   -   -   -   smtpd"
     postconf -P 127.0.0.1:10025/inet/content_filter=
