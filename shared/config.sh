@@ -19,9 +19,6 @@ echo "export ADMINUSERPASS=adminpassword" >> ~/.profile
 # Password, if using MySQL.
 echo "export MYSQLPASSWORD=password" >> ~/.profile
 
-# Password for the 'mail' user, if using.
-echo "export MYSQLMAILPASSWORD=mailpassword" >> ~/.profile
-
 # Use IMAP auth (default is Application/IMP).
 # echo "export IMAP_AUTH=true" >> ~/.profile
 

@@ -15,6 +15,7 @@ echo $newdb | mysql -u root --password=$MYSQLPASSWORD
 mysql -u root --password=$MYSQLPASSWORD < /vagrant/postfixadmin_schema.sql
 
 # Create initial user.
+echo 'Creating initial admin user.'
 echo "INSERT INTO domain (name, description) VALUES ('$DOMAIN', 'First Domain')" | mysql -u root --password=$MYSQLPASSWORD mail
 echo "INSERT INTO mailbox (domain_id, email, password) VALUES (1, '$ADMINUSER', ENCRYPT('$ADMINUSERPASSWORD', CONCAT('\$6\$', SUBSTRING(SHA(RAND()), -16))))" | mysql -u root --password=$MYSQLPASSWORD mail
 
