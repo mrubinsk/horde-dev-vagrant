@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # TODO, make this configurable.
-echo 'Provisioning Environment with Postfix for LOCAL delivery ONLY.';
+echo 'Provisioning Environment with Postfix.';
 if which postfix > /dev/null; then
     echo 'Postfix is already installed.'
 else
