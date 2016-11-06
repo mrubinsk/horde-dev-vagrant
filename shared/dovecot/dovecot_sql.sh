@@ -7,7 +7,7 @@ else
     echo 'Installing Dovecot'
     debconf-set-selections <<< "dovecot-core dovecot-core/create-ssl-cert boolean true"
     debconf-set-selections <<< "dovecot-core dovecot-core/ssl-cert-name string $HOSTNAME"
-    sudo apt-get -qq -y install dovecot-core dovecot-imapd dovecot-mysql
+    sudo apt-get -qq -y install dovecot-core dovecot-imapd dovecot-mysql dovecot-sieve dovecot-managesieved
 
     sed -i '/^driver =.*/s/^/#/g' /etc/dovecot/dovecot-sql.conf.ext
     echo -e 'driver = mysql' | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
@@ -16,11 +16,11 @@ else
     echo -e 'connect = host=127.0.0.1 dbname=mail user=mail password=mailpassword' | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
 
     sed -i '/^default_pass_scheme =.*/s/^/#/g' /etc/dovecot/dovecot-sql.conf.ext
-    echo -e 'default_pass_scheme = MD5-CRYPT' | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
+    echo -e 'default_pass_scheme = SHA512-CRYPT' | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
 
     sed -i '/^password_query =.*/s/^/#/g' /etc/dovecot/dovecot-sql.conf.ext
     echo -e "password_query = SELECT email as user, password FROM mailbox WHERE email='%u';" | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
-    echo -e "user_query = SELECT '/var/vmail/%d/%n' as home, 'maildir:/var/vmail/%d/%n' as mail,\n150 AS uid, 8 AS gid FROM mailbox WHERE email = '%u'" | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
+    echo -e "user_query = SELECT '/var/vmail/%d/%n' as home, 'maildir:/var/vmail/%d/%n' as mail, 150 AS uid, 8 AS gid FROM mailbox WHERE email = '%u'" | sudo tee -a /etc/dovecot/dovecot-sql.conf.ext
     echo -e "iterate_query = SELECT email AS user FROM mailbox;"
 
     echo -e 'disable_plaintext_auth = yes' | sudo tee -a /etc/dovecot/conf.d/10-auth.conf
@@ -43,7 +43,7 @@ else
 
     master="service imap-login {\n
       inet_listener imap {\n
-        port = 0\n
+        # port = 143\n
       }\n
       inet_listener imaps {\n
         #port = 993\n
@@ -84,8 +84,14 @@ else
     }"
     echo -e $master | sudo tee -a /etc/dovecot/conf.d/10-master.conf
 
-    chown -R vmail:dovecot /etc/dovecot
-    chmod -R o-rwx /etc/dovecot
+    sieve="protocol lmtp {\n
+  postmaster_address = admin@example.com\n
+  mail_plugins = $mail_plugins sieve\n
+}"
+  echo -e $sieve | sudo tee -a /etc/dovecot/conf.d/20-lmtp.conf
 
-    service dovecot restart
+  chown -R vmail:dovecot /etc/dovecot
+  chmod -R o-rwx /etc/dovecot
+
+  service dovecot restart
 fi

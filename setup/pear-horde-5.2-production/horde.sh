@@ -31,9 +31,6 @@ pear install horde/horde_role
 pear config-set horde_dir $HORDEDIR system
 
 echo "Performing PEAR installs"
-pecl install horde/horde_lz4
-echo "extension=horde_lz4.so" > /etc/php5/mods-available/horde_lz4.ini
-php5enmod horde_lz4
 pear install Date_Holidays-alpha#all Text_LanguageDetect-alpha
 echo "Be patient, installing Horde now..."
 pear install -a -B horde/webmail
