@@ -6,3 +6,4 @@ $conf['cookie']['path'] = '/';
 $conf['server']['port'] = 8080;
 $conf['openssl']['cafile'] = '/etc/ssl/certs';
 $conf['openssl']['path'] = '/usr/bin/openssl';
+$conf['gnupg']['path'] = '/usr/bin/gpg';

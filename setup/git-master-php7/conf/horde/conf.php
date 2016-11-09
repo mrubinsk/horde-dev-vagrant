@@ -97,6 +97,7 @@ $conf['sessionhandler']['hashtable'] = false;
 $conf['spell']['driver'] = '';
 $conf['gnupg']['keyserver'] = array('pool.sks-keyservers.net');
 $conf['gnupg']['timeout'] = 10;
+$conf['gnupg']['path'] = '/usr/bin/gpg';
 $conf['nobase64_img'] = false;
 $conf['image']['driver'] = false;
 $conf['exif']['driver'] = 'Bundled';
