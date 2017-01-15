@@ -19,8 +19,10 @@ Notes:
       Dovecot or Cyrus, and Postfix (configured for local delivery only).
       Email can be sent between any local users using e.g., testuser@localhost
 
-    - Images using various versions of PHP - 5.4, 5.5, 7.0. This is selected
-      by choosing the shared/phpxx.sh file desired in the Vagrantfile.
+    - PHP 5.6 is used by default unless otherwise noted.
+      This can be changed to PHP - 5.4, 5.5, 5.6, or 7.0. This is selected
+      by choosing the shared/phpxx.sh file desired in the Vagrantfile of the
+      image.
 
     - By default, Horde's web root is installed to /var/www/html/horde - this
       can be changed by editing shared/conf.sh file. For the Git images, the
