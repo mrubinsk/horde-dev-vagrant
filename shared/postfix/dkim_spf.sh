@@ -43,7 +43,7 @@ chmod -R go-rwx /etc/opendkim/keys
 
 opendkim-genkey -b 2048 -r -s dkey
 mv dkey.private /etc/opendkim/keys/mydomain.private
-mv mydomain.txt /etc/opendkim/keys/example.txt
+mv dkey.txt /etc/opendkim/keys/example.txt
 
 chown -R opendkim:opendkim /etc/opendkim
 chmod -R go-rw /etc/opendkim/keys
