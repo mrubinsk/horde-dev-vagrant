@@ -15,13 +15,13 @@ expect {Database name to use* \[\]}
 send "horde\r"
 expect {Internally used charset* \[utf-8\]}
 send "\r"
-expect {Type your choice \[0\]:}
+expect {Type your choice \[\]:}
+send "false\r"
+expect {Type your choice \[false\]}
 send "\r"
-expect {Certification Authority to use for SSL connections \[\]}
+expect {Type your choice \[0\]}
 send "\r"
-expect {Type your choice \[false\]:}
-send "\r"
-expect {*(optional):}
+expect {Specify*}
 send "$env(ADMINUSER)\r"
 expect {Thank*}
 interact
