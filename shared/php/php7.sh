@@ -6,7 +6,7 @@ echo "Provisioning for PHP 7.0"
 add-apt-repository ppa:ondrej/php
 apt-get update
 
-apt-get -y install php php-dev php-mysql php-gd php-imagick php-mbstring
+apt-get -y install php php-dev php-mysql php-gd php-imagick php-mbstring php-zip
 
 # enable mod_rewrite
 a2enmod rewrite
