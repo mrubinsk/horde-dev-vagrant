@@ -12,6 +12,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell",
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
+  config.vm.provision :shell,
+    path: "../../shared/apache/apache.sh",
+    name: "Installing Apache"
   config.vm.provision "shell",
     path: "../../shared/php/php56.sh",
     name: "Configuring for PHP 5.6"

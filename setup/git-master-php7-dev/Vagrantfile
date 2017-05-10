@@ -17,6 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
   config.vm.provision :shell,
+    path: "../../shared/apache/apache.sh",
+    name: "Installing Apache"
+  config.vm.provision :shell,
     path: "../../shared/users.sh",
     name: "Creating users"
   config.vm.provision :shell,

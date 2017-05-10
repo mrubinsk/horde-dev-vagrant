@@ -1,4 +1,4 @@
-    #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 echo "Provisioning for PHP 5.6.x"
 
@@ -15,33 +15,3 @@ pear upgrade -c pear
 
 pear install Math_BigInteger
 pecl install jsonc
-
-# enable mod_rewrite
-a2enmod rewrite
-
-echo "Adding Alias rule for ActiveSync"
-sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/html/horde/rpc.php"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
-sudo mv /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
-sudo awk '/<VirtualHost/ { print; print "Alias /Microsoft-Server-ActiveSync /var/www/html/horde/rpc.php"; next}1' /etc/apache2/sites-available/default-ssl.conf.bak > /etc/apache2/sites-available/default-ssl.conf
-
-echo "Adding Redirect for WebDav"
-sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-sudo awk '/<VirtualHost/ { print; print "RedirectPermanent /.well-known/caldav /horde/rpc.php/"; next}1' /etc/apache2/sites-available/000-default.conf.bak > /etc/apache2/sites-available/000-default.conf
-
-
-# Add php-ini location
-pear config-set php_ini /etc/php5/apache2/php.ini
-
-# Needs testing
-# echo 'Installing PECL extensions'
-# pecl install pecl/msgpack-0.5.7
-# echo "extension=msgpack.so" >> /etc/php5/mods-available/msgpack.ini
-# php5enmod msgpack
-# pecl install pecl/raphf-1.1.2
-# pecl install pecl/propro-1.0.2
-# echo "extension=raphf.so
-# extension=propro.so" > /etc/php5/mods-available/http.ini
-# php5enmod http
-# pecl install pecl_http-2.5.6
-# echo "extension=http.so" >> /etc/php5/mods-available/http.ini
