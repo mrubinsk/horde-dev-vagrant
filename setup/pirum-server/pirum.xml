@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server>
+  <name>pear.horde.org</name>
+  <summary>TEST Horde PEAR server - FOR DEVELOPMENT USE ONLY.</summary>
+  <alias>horde</alias>
+  <url>https://pear.horde.org</url>
+</server>
