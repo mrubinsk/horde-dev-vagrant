@@ -15,7 +15,7 @@ chown -R vagrant:vagrant /horde/src
 
 # For now, we require a legacy git repo checkout in ~/horde-git
 # Must do this as the vagrant user so the horde-git source is linked correctly.
-su - vagrant -c "git clone --depth 1 https://github.com/horde/horde.git /home/vagrant/horde-git ; cd /horde/tools; composer --ignore-platform-reqs install"
+su - vagrant -c "git clone --depth 1 https://github.com/horde/horde.git /home/vagrant/horde-git ; cd /horde/tools; composer install"
 
 # Copy the config file.
 cp /vagrant/conf/git-tools-conf.php /horde/tools/config/conf.php
@@ -46,5 +46,5 @@ echo 'Restarting Apache.'
 
 # For now, we pass the base-directory since we haven't moved away from the
 # monolithic repo yet.
-/horde/src/applications/base/bin/horde-db-migrate --base-directory=/horde/src
-/horde/src/applications/base/bin/horde-db-migrate --base-directory=/horde/src
+/horde/src/applications/base/bin/horde-db-migrate
+/horde/src/applications/base/bin/horde-db-migrate
