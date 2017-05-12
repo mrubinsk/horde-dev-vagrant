@@ -23,18 +23,19 @@ $conf['verbose'] = false;
 $conf['git_base'] = '/horde/src';
 
 // Github organization to use for repositories
-$conf['org'] = 'horde-split-test';
+$conf['org'] = 'horde-git-test';
 
 // To use a "developer" checkout, use the following URI for github.
 // Otherwise, an anonymous clone will be done that cannot be pushed.
-//$conf['git_ssh'] = 'git@github.com:';
+// Ensure any ssh keys that are needed are present.
+$conf['git_ssh'] = 'git@github.com:';
 
 // Ignore the following repositories. Mostly used to avoid cloning of the
 // legacy monolithic repository.
 $conf['ignore'] = array('horde');
 
 // A renaming map. Renames repository names to a new "web" name.
-$conf['map'] = array($conf['base'] = 'horde');
+$conf['map'] = array('base' => 'horde');
 
 // If true, use the 'get' alias recommended by https://www.horde.org/development/git#updating-repository
 $conf['use_git_get'] = false;
@@ -48,12 +49,13 @@ $conf['add_get_alias'] = true;
 // calls could blacklist the client IP for 15 minutes.
 $conf['cache'] = true;
 
-
 /* PEAR server name. Only change for testing purposes. */
-$conf['releaseserver'] = 'pear.horde.org';
+//$conf['releaseserver'] = 'pear.horde.org';
+$conf['releaseserver'] = 'demo@testpear.horde.org';
 
 /* PEAR server directory. Only change for testing purposes. */
-$conf['releasedir'] = '/horde/web/pear.horde.org';
+//$conf['releasedir'] = '/horde/web/pear.horde.org';
+$conf['releasedir'] = '/var/www';
 
 /* Username for horde.org.
  * Make sure you belong to the "horde" group there. */
@@ -66,8 +68,7 @@ $conf['horde_pass'] = '';
 $conf['from'] = 'Full name <user@horde.org>';
 
 /* Path to a checkout of the horde-web repository. */
-// $conf['web_dir'] = '/var/www/horde-web';
-
+$conf['web_dir'] = '/var/www/horde-web';
 
 // "Dev" related configuration. I.e., "install-dev" type stuff.
 
