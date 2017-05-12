@@ -4,6 +4,16 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # config.vm.provider :scaleway do |scaleway, override|
+  #   scaleway.organization = ''
+  #   scaleway.token = ''
+  #   scaleway.commercial_type = 'C1'
+  #   scaleway.image = '27ccbd68-090d-4f95-a342-db2c1c8f3628'
+  #   scaleway.name = 'test'
+  #   scaleway.ssh_host_attribute = :public_ip_address
+  #   scaleway.server_ready_timeout = 240
+  #   override.ssh.private_key_path = '~/.ssh/id_rsa'
+  # end
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "forwarded_port", guest: 80, host: 8080
    config.vm.provision :shell,
