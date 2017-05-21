@@ -26,12 +26,12 @@ su - vagrant -c "/horde/tools/bin/horde-git-tools git clone"
 
 # # Move prebuilt configuration over.
 echo 'Copying configuration files.'
-cp /vagrant/conf/horde/* /horde/src/applications/base/config/
-cp /vagrant/conf/imp/* /horde/src/applications/imp/config/
-cp /vagrant/conf/kronolith/* /horde/src/applications/kronolith/config/
-cp /vagrant/conf/turba/* /horde/src/applications/turba/config/
-cp /vagrant/conf/ingo/* /horde/src/applications/ingo/config/
-chown www-data:www-data /horde/src/applications/base/config/conf.php
+cp /vagrant/conf/horde/* /horde/src/base/config/
+cp /vagrant/conf/imp/* /horde/src/imp/config/
+cp /vagrant/conf/kronolith/* /horde/src/kronolith/config/
+cp /vagrant/conf/turba/* /horde/src/turba/config/
+cp /vagrant/conf/ingo/* /horde/src/ingo/config/
+chown www-data:www-data /horde/src/base/config/conf.php
 
 #Install Horde_Role
 echo "Configuring PEAR"
@@ -47,5 +47,5 @@ echo 'Restarting Apache.'
 
 # For now, we pass the base-directory since we haven't moved away from the
 # monolithic repo yet.
-/horde/src/applications/base/bin/horde-db-migrate
-/horde/src/applications/base/bin/horde-db-migrate
+/horde/src/base/bin/horde-db-migrate
+/horde/src/base/bin/horde-db-migrate
