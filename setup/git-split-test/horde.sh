@@ -15,7 +15,8 @@ chown -R vagrant:vagrant /horde/src
 
 # For now, we require a legacy git repo checkout in ~/horde-git
 # Must do this as the vagrant user so the horde-git source is linked correctly.
-su - vagrant -c "git clone --depth 1 https://github.com/horde/horde.git /home/vagrant/horde-git ; cd /horde/tools; composer install"
+git clone --depth 1 https://github.com/horde/horde.git /horde/horde-git
+su - vagrant -c "cd /horde/tools; composer install --ignore-platform-reqs"
 
 # Copy the config file.
 cp /vagrant/conf/git-tools-conf.php /horde/tools/config/conf.php
