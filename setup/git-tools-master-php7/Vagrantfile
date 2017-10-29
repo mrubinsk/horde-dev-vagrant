@@ -44,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/Composer/composer.sh",
     name: "Installing Composer"
   config.vm.provision :shell,
-    path: "horde-git-tools.sh",
+    path: "../../shared/horde-git-tools.sh",
     name: "Installing horde-git-tools"
   config.vm.provision :shell,
     path: "horde.sh",
