@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-echo 'Creating horde database.'
-mysql -u root --password=$MYSQLPASSWORD -e "create database horde";
-
 # Install Horde from source
 apt-get install -y git
 mkdir -p /horde/data
