@@ -6,5 +6,5 @@ if which vsftpd > /dev/null; then
 else
     sudo apt-get install -y vsftpd
     echo -e 'write_enable=YES' | sudo tee -a /etc/vsftpd.conf
-    sudo restart vsftpd
+    service vsftpd restart
 fi
