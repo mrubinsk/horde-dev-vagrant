@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/apache/apache.sh",
     name: "Installing Apache"
   config.vm.provision :shell,
-    path: "../../shared/php/php7.sh",
+    path: "../../shared/php/php73.sh",
     name: "Configuring for PHP 7"
   config.vm.provision :shell,
     path: "../../shared/users.sh",
