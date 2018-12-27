@@ -11,7 +11,7 @@ else
     sudo touch /etc/dovecot/local.conf
     echo -e 'mail_location = mbox:~/mail' | sudo tee -a /etc/dovecot/local.conf
     echo -e 'disable_plaintext_auth = no' | sudo tee -a /etc/dovecot/local.conf
-    sudo restart dovecot
+    sudo service dovecot restart
 fi
 
 #TODO
