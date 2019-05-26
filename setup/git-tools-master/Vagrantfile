@@ -5,8 +5,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/bionic64"
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-  #config.vm.network "public_network", ip: "192.168.1.51"
+  #config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "private_network", ip: "192.168.10.10"
+  config.vm.hostname = "horde-master.local"
+  config.hostsupdater.aliases = ["www.horde-master.local"]
   config.vm.provision :shell,
     path: "../../shared/config.sh",
     name: "Configuring environment"
@@ -17,11 +19,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
   config.vm.provision :shell,
-    path: "../../shared/apache/apache.sh",
-    name: "Installing Apache"
+    path: "../../shared/php/php73-fpm.sh",
+    name: "Configuring for PHP 7-fpm"
   config.vm.provision :shell,
-    path: "../../shared/php/php73.sh",
-    name: "Configuring for PHP 7"
+    path: "../../shared/nginx/nginx.sh",
+    name: "Installing NGINX"
   config.vm.provision :shell,
     path: "../../shared/users.sh",
     name: "Creating users"

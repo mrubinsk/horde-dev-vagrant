@@ -33,8 +33,6 @@ pear config-set horde_dir "$HORDEDIR"
 # Install framework
 horde-git-tools dev install
 
-echo 'Restarting Apache.'
-/etc/init.d/apache2 restart
 
-/horde/src/base/bin/horde-db-migrate
-/horde/src/base/bin/horde-db-migrate
+$HORDESRC/base/bin/horde-db-migrate
+$HORDESRC/base/bin/horde-db-migrate
