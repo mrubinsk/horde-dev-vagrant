@@ -11,16 +11,16 @@ pear config-set preferred_state beta system
 pear config-set auto_discover 1 system
 
 echo "Installing Horde_Role and setting horde_dir to $HORDEDIR"
-pear install -f horde/horde_role
+pear install horde/horde_role
 pear config-set horde_dir $HORDEDIR
 
 echo "Performing PEAR installs"
-
+pecl install horde/horde_lz4
+echo "extension=horde_lz4.so" > /etc/php5/mods-available/horde_lz4.ini
+php5enmod horde_lz4
+pear install Date_Holidays-alpha#all Text_LanguageDetect-alpha
 echo "Be patient, installing Horde now..."
-pear install -a -B -f horde/webmail
-
-echo "Uninstalling Services_Weather."
-pear uninstall Services_Weather Date_Holidays
+pear install -a -B horde/webmail
 
 echo "Running webmail-install"
 /vagrant/horde-install.expect
@@ -37,11 +37,8 @@ echo "Enabling EAS support."
 cat /vagrant/conf.d/10-eas.php >> $HORDEDIR/config/conf.local.php
 
 # Outlook EAS testing requires SSL.
-a2enmod ssl
-a2ensite default-ssl
-
-#restarting Apache
-/etc/init.d/apache2 restart
+sudo a2enmod ssl
+sudo a2ensite default-ssl
 
 # Use IMAP AUTH?
 if [ "$IMAP_AUTH" = "true" ]

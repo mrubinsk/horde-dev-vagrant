@@ -2,9 +2,6 @@
 
 echo 'Setting ENV variables'
 
-# Path to web accessible directory for Horde.
-echo "export HORDEDIR=/var/www/html/horde" >> ~/.profile
-
 # Test users
 echo "export TESTUSERONE=demo" >> ~/.profile
 echo "export TESTUSERONEPASS=demo" >> ~/.profile

@@ -8,6 +8,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell,
     path: "../../shared/config.sh",
     name: "Configuring environment"
+  config.vm.provision "shell",
+    path: "./config.sh",
+    name: "Configuring local variables."
   config.vm.provision :shell,
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"

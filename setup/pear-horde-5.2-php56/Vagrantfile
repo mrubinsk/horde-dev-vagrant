@@ -5,10 +5,12 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "forwarded_port", guest: 80, host: 8080
-  #config.vm.network "public_network", ip: "192.168.1.51"
   config.vm.provision "shell",
     path: "../../shared/config.sh",
     name: "Configuring environment"
+  config.vm.provision "shell",
+    path: "./config.sh",
+    name: "Configuring local variables."
   config.vm.provision "shell",
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
@@ -21,9 +23,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell",
     path: "../../shared/users.sh",
     name: "Adding users"
-  config.vm.provision :shell,
-    path: "../../shared/oracle.sh",
-    name: "Installing Oracle"
+  config.vm.provision "shell",
+    path: "../../shared/mysql/mysql.sh",
+    name: "Installing MySQL"
   config.vm.provision "shell",
     path: "../../shared/dovecot/dovecot.sh",
     name: "Installing Dovecot"

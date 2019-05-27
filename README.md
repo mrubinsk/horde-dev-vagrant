@@ -1,32 +1,45 @@
 horde-dev-vagrant
 =================
 
-Vagrant images for Horde. Requires Vagrant 1.8. These should be considered for
+I've transitioned to using mostly nginx in my stack, and have finally started
+updating these boxes to reflect my personal development environments. This
+means that the main 'git-tools' and 'pear-horde-5.2' boxes are now based on
+nginx and PHP 7.3-FPM. The provisioning scripts for the other PHP and webserver
+options are still present in the the /shared folder and can easily be switched
+out in the Vagrantfile.
+
+If you are looking for the older configurations, including the legacy monolithic
+repository boxes, they have moved to the DEPRECATED branch.
+
+Vagrant images for Horde. Requires Vagrant 2.2. These should be considered for
 DEVELOPMENT use only, or as a starting point for a more complete Vagrant image.
-Some of the images are still a work in progress, but the pear images are mostly
-done and fully functional.
 
 Usage:
   - change to the desired setup/* directory
+  - Inspect Vagrantfile and/or config files and change as needed.
   - Run "vagrant up". That's it.
     - To destroy, run "vagrant destroy"
 
 Notes:
 
-    - All images based on Ubuntu Trusty64 unless otherwise noted.
+    - All images based on Ubuntu boxes. See below for specific versions.
 
     - Installs either MySQL or MariaDB,
       Dovecot or Cyrus, and Postfix (configured for local delivery only).
       Email can be sent between any local users using e.g., testuser@localhost
 
-    - PHP 5.6 is used by default unless otherwise noted.
-      This can be changed to PHP - 5.4, 5.5, 5.6, or 7.0. This is selected
-      by choosing the shared/phpxx.sh file desired in the Vagrantfile of the
-      image.
+    - PHP 7.3 is used by the default git-tools and pear-horde-5.2 boxes. Other
+      boxes are as described. This can be changed to PHP - 5.4, 5.5, 5.6,
+      or 7.0. This is selected by choosing the shared/phpxx.sh file desired in
+      the Vagrantfile of the image.
 
-    - By default, Horde's web root is installed to /var/www/html/horde - this
-      can be changed by editing shared/conf.sh file. For the Git images, the
-      source tree is installed to /horde/src.
+    - For the Git images, the source tree is installed to /vagrant/horde/src
+      and is therefore shared by the host OS, so editing and managing git from
+      outside the VM is possible. Note that while you can execute git commands
+      from outside the VM, using horde-git-tools from the shared directory
+      will not work without a different configuration file since the paths are
+      different...and the 'dev' commands won't work at all since they operate
+      on the horde webroot, inside the VM.
 
     - The following users are created - username and passwords can be changed
       by editing the shared/conf.sh file:
@@ -34,7 +47,10 @@ Notes:
        - guest/guest
        - adminuser/adminpassword
 
-    - Horde is reachable on port 8080 of the host running the virtual image.
+    - On most of the boxes, Horde is reachable on port 8080 of the host running
+      the virtual image. You will probably want to change this for your needs.
+      The 'git-tools-master' image runs on public_network on port 80 by default
+      since I often use this to test ActiveSync connectivity.
       This can be changed by changing the network config in the Vagrantfile
       of the image. If you change this setting you may also need to change
       Horde's config/conf.php file as well to point to the correct IP and/or
@@ -45,41 +61,36 @@ Notes:
       administive user/password will require corresponding change in imp's
       backend file for cyrus etc...
 
-Following are the available images. The pear images are complete and more fully
-tested. The php7 image and some of the cyrus images may still need some tweaks.
+     - A minimal configuration is provided by default for the git images.
+       Enough to get Horde running. You should review the config for your needs.
 
-git-master-dev:         Current Git master.
+Following are the available images.
 
-git-master-dev-32bit:   Current Git master running on 32bit Ubuntu Trusty.
+git-tools-master:               Current Git master. Ubuntu Bionic, Nginx,
+                                PHP 7.3
 
-git-master-cyrus:       Current Git master using Cyrus with kolab
-                        annotations available instead of stock dovecot.
+git-tools-stable:               Current git stable branch; currently
+                                FRAMEWORK_5_2.
 
-git-master-php7:        Current Git master running on PHP7.
+pear-horde-5.2:                 Installs the current Horde Groupware Webmail
+                                Edition on Ubuntu Bionic, PHP 7.3.
 
-git-master-php7-dev:    Current Git master running on a compiled checkout of
-                        PHP's master branch (currently 7.1-dev).
+pear-horde-5.2-php54:           Installs the current Horde Groupware Webmail
+                                Edition on Ubuntu Precise, PHP 5.4 and Apache.
 
-pear-horde-5.2:         Installs the current Horde Groupware Webmail Edition
-                        running on PHP 5.5.
+pear-horde-5.2-php56:           Installs the current Horde Groupware Webmail
+                                Edition on Ubuntu Trusty, PHP 5.6 and Apache.
 
-pear-horde-cyrus-5.2:   Same as pear-horde-5.2, but running Cyrus instead of
-                        instead of Dovecot and setup for Kolab.
 
-pear-horde-mariadb-5.2: Same as pear-horde-5.2, but running MariaDB instead of
-                        mySql.
+pear-horde-5.2-php56-cyrus:     Same as pear-horde-5.2-php56, but running Cyrus
+                                instead of instead of Dovecot and setup for
+                                Kolab.
 
-pear-horde-php54-5.2:   Same as pear-horde-5.2, but running on PHP 5.4.
+pear-horde-5.2.-php56-mariadb: Same as pear-horde-5.2, but running MariaDB
+                              instead of mySql.
 
-Note: the two oracle images require a bit of setup to use correctly, and they
+Note: the oracle image require a bit of setup to use correctly, and they
 only include client libraries, not the server. The libraries required cannot be
 distributed. These images are here for my use. You are free to use them if you
 set them up correctly, but don't expect them to work out of the box.
 
-
-
-@TODO:
-
-Some files need to be present in /vagrant, but really should be shared. We
-should store them in shared, but copy them to /vagrant instead of placing them
-in individual /setup/* folders.

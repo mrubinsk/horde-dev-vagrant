@@ -5,9 +5,13 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.provision :shell,
+  #config.vm.network "public_network", ip: "192.168.1.51"
+  config.vm.provision "shell",
     path: "../../shared/config.sh",
     name: "Configuring environment"
+  config.vm.provision "shell",
+    path: "./config.sh",
+    name: "Configuring local variables."
   config.vm.provision :shell,
     path: "../../shared/bootstrap.sh",
     name: "Bootstrapping OS"
@@ -18,23 +22,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "../../shared/php/php56.sh",
     name: "Configuring for PHP 5.6"
   config.vm.provision :shell,
-    path: "../../shared/users.sh",
-    name: "Adding users"
-  config.vm.provision :shell,
-    path: "../../shared/mysql/mariadb.sh",
-    name: "Installing MariaDB"
-  config.vm.provision :shell,
-    path: "../../shared/dovecot/dovecot.sh",
-    name: "Installing Dovecot"
+    path: "../../shared/mysql/mysql.sh",
+    name: "Installing MySQL"
   config.vm.provision :shell,
     path: "../../shared/postfix/postfix_local.sh",
     name: "Installing Postfix and configuring for local delivery only."
   config.vm.provision :shell,
-    path: "../../shared/postfix/procmail.sh",
-    name: "Installing Procmail"
+    path: "../../shared/cyrus/cyrus.sh",
+    name: "Installing Cyrus"
   config.vm.provision :shell,
-    path: "../../shared/vsftpd.sh",
-    name: "Installing vsftp"
+    path: "../../shared/cyrus/cyrus_users.sh",
+    name: "Creating Cyrus users"
   config.vm.provision :shell,
     path: "horde.sh",
     name: "Installing Horde"

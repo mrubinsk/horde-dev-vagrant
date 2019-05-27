@@ -13,8 +13,9 @@ mkdir -p "$VFSDIR"
 chown -R www-data:www-data "$VFSDIR"
 
 # Clone Git master
-echo 'Cloning horde apps from git master with horde-git-tools'
+echo "Cloning horde apps and switching to $BRANCHNAME with horde-git-tools"
 su - "$VAGRANTUSER" -c "horde-git-tools git clone"
+su - "$VAGRANTUSER" -c "horde-git-tools git checkout $BRANCHNAME"
 
 # Move prebuilt configuration over.
 echo 'Copying configuration files.'

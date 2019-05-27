@@ -22,3 +22,4 @@ if [[ "$GIT_DEPTH" == "shallow" ]]; then
 else
     sed -i "s|^\$conf\['clone'\].*|\$conf\['clone'\] = '';|" "$HORDETOOLS"/config/conf.php
 fi
+
